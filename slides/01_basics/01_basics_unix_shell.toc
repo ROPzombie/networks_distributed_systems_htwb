@@ -1,0 +1,16 @@
+\selectlanguage *{german}
+\beamer@sectionintoc {2}{Historisches zu Unix}{4}{0}{1}
+\beamer@subsectionintoc {2}{1}{Linux}{6}{0}{1}
+\beamer@sectionintoc {3}{Unixoide Betriebssysteme}{7}{0}{2}
+\beamer@subsectionintoc {3}{1}{Aufgaben des OS'}{7}{0}{2}
+\beamer@subsectionintoc {3}{2}{Architektur (monolithischer Kernel)}{9}{0}{2}
+\beamer@subsectionintoc {3}{3}{Dateisysteme}{10}{0}{2}
+\beamer@subsectionintoc {3}{4}{User \& Gruppen}{14}{0}{2}
+\beamer@subsectionintoc {3}{5}{Ziffer- und Positionssysteme}{15}{0}{2}
+\beamer@subsectionintoc {3}{6}{DAC}{16}{0}{2}
+\beamer@sectionintoc {4}{Systemcalls \& Daemons}{19}{0}{3}
+\beamer@sectionintoc {5}{Unix-Philosophie}{20}{0}{4}
+\beamer@sectionintoc {6}{Shell}{22}{0}{5}
+\beamer@subsectionintoc {6}{1}{Einführung}{23}{0}{5}
+\beamer@subsectionintoc {6}{2}{Shell 101}{25}{0}{5}
+\beamer@subsectionintoc {6}{3}{Shell Input/Output}{26}{0}{5}

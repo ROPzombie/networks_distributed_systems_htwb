@@ -1,0 +1,5 @@
+\selectlanguage *{german}
+\beamer@sectionintoc {2}{Disclamer}{3}{0}{1}
+\beamer@sectionintoc {3}{Organisatorisches}{4}{0}{2}
+\beamer@subsectionintoc {3}{1}{Grundsätzliches}{4}{0}{2}
+\beamer@subsectionintoc {3}{2}{ECTS}{7}{0}{2}
