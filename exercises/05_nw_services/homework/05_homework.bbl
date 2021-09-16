@@ -1,0 +1,113 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{anyt/global//global/global}
+    \entry{fall2011tcp}{book}{}
+      \name{author}{2}{}{%
+        {{hash=7e2c86820cdae7981e97573f692e14c1}{%
+           family={Fall},
+           familyi={F\bibinitperiod},
+           given={Kevin\bibnamedelima R.},
+           giveni={K\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=7b3f9a34e054c9def2449eb0157ce299}{%
+           family={Stevens},
+           familyi={S\bibinitperiod},
+           given={Richard\bibnamedelima W.},
+           giveni={R\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {addison-Wesley}%
+      }
+      \strng{namehash}{635c389ebefc38a7423d4461b96471d4}
+      \strng{fullhash}{635c389ebefc38a7423d4461b96471d4}
+      \strng{bibnamehash}{635c389ebefc38a7423d4461b96471d4}
+      \strng{authorbibnamehash}{635c389ebefc38a7423d4461b96471d4}
+      \strng{authornamehash}{635c389ebefc38a7423d4461b96471d4}
+      \strng{authorfullhash}{635c389ebefc38a7423d4461b96471d4}
+      \field{labelalpha}{FS11}
+      \field{sortinit}{F}
+      \field{sortinithash}{fb0c0faa89eb6abae8213bf60e6799ea}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{TCP/IP illustrated, volume 1: The protocols}
+      \field{year}{2011}
+    \endentry
+    \entry{kozierok2005tcp}{article}{}
+      \name{author}{1}{}{%
+        {{hash=a26ab3df4209dd4db8627d1d50b3d2ec}{%
+           family={Kozierok},
+           familyi={K\bibinitperiod},
+           given={Charles\bibnamedelima M.},
+           giveni={C\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {No Starch Press, Series. No Starch}%
+      }
+      \strng{namehash}{a26ab3df4209dd4db8627d1d50b3d2ec}
+      \strng{fullhash}{a26ab3df4209dd4db8627d1d50b3d2ec}
+      \strng{bibnamehash}{a26ab3df4209dd4db8627d1d50b3d2ec}
+      \strng{authorbibnamehash}{a26ab3df4209dd4db8627d1d50b3d2ec}
+      \strng{authornamehash}{a26ab3df4209dd4db8627d1d50b3d2ec}
+      \strng{authorfullhash}{a26ab3df4209dd4db8627d1d50b3d2ec}
+      \field{labelalpha}{Koz05}
+      \field{sortinit}{K}
+      \field{sortinithash}{d3edc18d54b9438a72c24c925bfb38f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Illustrated Internet Protocols Reference}
+      \field{title}{The TCP/IP Guide: A Comprehensive}
+      \field{year}{2005}
+    \endentry
+    \entry{Kurose2012}{book}{}
+      \name{author}{2}{}{%
+        {{hash=940597b1d3215b2b17b93101036fbb5e}{%
+           family={Kurose},
+           familyi={K\bibinitperiod},
+           given={James\bibnamedelima F.},
+           giveni={J\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=c2e119f22d4ef9df7cfb63c82975b459}{%
+           family={Ross},
+           familyi={R\bibinitperiod},
+           given={Keith\bibnamedelima W.},
+           giveni={K\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Pearson}%
+      }
+      \strng{namehash}{79b9c386af384b822481cee1fccbb76a}
+      \strng{fullhash}{79b9c386af384b822481cee1fccbb76a}
+      \strng{bibnamehash}{79b9c386af384b822481cee1fccbb76a}
+      \strng{authorbibnamehash}{79b9c386af384b822481cee1fccbb76a}
+      \strng{authornamehash}{79b9c386af384b822481cee1fccbb76a}
+      \strng{authorfullhash}{79b9c386af384b822481cee1fccbb76a}
+      \field{labelalpha}{KR12}
+      \field{sortinit}{K}
+      \field{sortinithash}{d3edc18d54b9438a72c24c925bfb38f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{6th}
+      \field{isbn}{0132856204, 9780132856201}
+      \field{title}{Computer Networking: A Top-Down Approach (6th Edition)}
+      \field{year}{2012}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
