@@ -1,9 +1,0 @@
-[0] Config.pm:312> INFO - This is Biber 2.15
-[0] Config.pm:315> INFO - Logfile is '06_homework.blg'
-[66] biber:330> INFO - === Wed Mar 24, 2021, 11:21:37
-[77] Biber.pm:415> INFO - Reading '06_homework.bcf'
-[137] Biber.pm:952> INFO - Found 0 citekeys in bib section 0
-[141] Utils.pm:395> WARN - The file '06_homework.bcf' does not contain any citations!
-[148] bbl.pm:651> INFO - Writing '06_homework.bbl' with encoding 'UTF-8'
-[148] bbl.pm:754> INFO - Output to 06_homework.bbl
-[148] Biber.pm:128> INFO - WARNINGS: 1
