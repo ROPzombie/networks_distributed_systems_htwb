@@ -1,0 +1,132 @@
+%start preamble
+\documentclass[paper=a4,fontsize=11pt]{scrartcl}%kind of doc, font size, paper size
+
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+%\setsansfont{Liberation Sans}
+\usepackage{polyglossia}	
+\setdefaultlanguage[spelling=new, babelshorthands=true]{german}
+			
+\usepackage{amsmath}%get math done
+\usepackage{amsthm}%get theorems and proofs done
+\usepackage{graphicx}%get pictures & graphics done
+\graphicspath{{pictures/}}%folder to stash all kind of pictures etc
+\usepackage{amssymb}%symbolics for math
+\usepackage{amsfonts}%extra fonts
+\usepackage{caption}%captions under everything
+\usepackage{listings}
+\numberwithin{equation}{section} 
+\usepackage{float}%for garphics and how to let them floating around in the doc
+\usepackage{xcolor}%nicer colors, here used for links
+\usepackage{dsfont}
+\usepackage{stmaryrd}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{csquotes}
+\usepackage{enumitem}
+
+\usepackage[backend=biber,style=alphabetic,
+citestyle=alphabetic]{biblatex} %biblatex mit biber laden
+\addbibresource{sources.bib}
+
+%settings colors for links
+\hypersetup{
+    colorlinks,
+    linkcolor={blue!50!black},
+    citecolor={blue},
+    urlcolor={blue!80!black}
+}
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+
+\pagestyle{fancy}
+\lhead{NW+VS -- Übung\\WiSe 2021/22}
+\rhead{FB 4 -- IKG \\ HTW-Berlin}
+\lfoot{Übungsblatt 02 -- Application Layer}
+\cfoot{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\lstdefinestyle{Bash}{
+  language=bash,
+  showstringspaces=false,
+  basicstyle=\small\sffamily,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  frame=trlb,
+  columns=fullflexible,
+  backgroundcolor=\color{gray!20},
+  linewidth=0.9\linewidth,
+  %xleftmargin=0.5\linewidth
+}
+
+
+%%here begins the actual document%%
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+
+\begin{document}
+\begin{center}
+\Large{\textbf{Übungsblatt 2 -- Application Layer}}
+\end{center}
+Eine gute Einführung finden Sie im Kurose et al. \cite[S. 83ff]{Kurose2012} oder \cite[S. 1317ff]{kozierok2005tcp}.
+
+\begin{center}\Large{\textbf{Aufgabe A -- HTTP(S)}}\end{center}\vskip0.25in
+Kein anderes Protokoll ist für das World-Wide-Web so wichtig wie HTTP. In diesem Teil sollen sie recherchieren, wie die bunten Seiten in Ihren Browser kommen.
+\begin{enumerate}
+	\item Recherchieren sie zunächst was HTTP ist. Eine gute Anlaufstelle wäre \cite[S. 98ff]{Kurose2012}.
+	\item Erläutern sie grob, was eine Client-Server-Architektur ist. Wieso entspricht HTTP diesem Modell?
+	\item Auf welcher Schicht des OSI-Modells ordnen Sie HTTP ein?
+	\item Recherchieren sie was unter einem Port verstanden wird! Ein grobes Verständnis genügt.
+	\item Auf welchen Port laufen meistens Webserver? Auf welchem Port läuft die verschlüsselte Variante HTTPs?
+	\item HTTP ist ein zustandsloses Protokoll. Erläutern Sie diese Aussage!
+	\item HTTP arbeitet mithilfe von Methoden. Erläutern sie kurz folgende Methoden:
+	\begin{itemize}
+		\item \emph{GET}
+		\item \emph{HEAD}
+		\item \emph{POST}
+		\item \emph{PUT}
+		\item \emph{DELETE}
+		\item \emph{TRACE}
+	\end{itemize}
+	\item Machen sie sich kurz klar, welche Aufgabe TLS übernimmt. (Hinweis: An dieser Stelle genügt es, wenn sie wissen was TLS macht.)
+	\item Auf welcher Schicht arbeitet TLS? Wenn Sie das Akronym auflösen, sollte die Lösung Ihnen entgegen fallen.
+\end{enumerate}
+
+\begin{center}\Large{\textbf{Aufgabe B -- E-Mail mit POP3, IMAPv4 \& SMTP}}\end{center}\vskip0.25in
+
+Das Simple Mail Transfer Protokoll (SMTP) wird, wie der Name schon sagt, zum Austausch von E-Mails in Computernetzwerken genutzt. Primär wird es zum Weiterleiten von Mails zwischen Servern genutzt. Auf ihren Endgeräten kommt zumeist \emph{IMAP} oder \emph{POP3} zum Einsatz. 
+\begin{enumerate}
+	\item Wie in den vorigen Aufgaben: \url{https://youtu.be/TntfISdGwO8} gibt eine Einführung zu E-Mail.
+	\item Recherchieren Sie zunächst was sich hinter den Akronymen POP3, IMAPv4, sowie SMTP verbirgt.
+	\item Erläutern sie im groben welche Aufgaben die oben genannten Protokolle übernehmen.
+	\item Auf welcher Ebene des OSI-Modells arbeiten die Protokolle?
+	\item Machen sie sich im Groben klar, wie diese Protokolle arbeiten.	
+	\item Worin unterscheiden sich POP3 und IMAP?
+	\item Auf welchen Ports arbeiten die drei Protokolle?
+	\item Auf welchen Ports arbeiten die drei Protokolle mit Verschlüsselung?
+\end{enumerate}
+
+\begin{center}\Large{\textbf{Aufgabe C -- Python Grundlagen}}\end{center}\vskip0.25in
+
+\begin{enumerate}
+	\item Falls sie nicht an den Laborübungen teilnehmen können, sie benötigen einen Python Interpreter. Auf der VM ist dieser bereits vorhanden und kann mit dem Kommando \emph{python} aufgerufen werden.
+	\item Für den Start benötigen wir einige Grundlagen. Recherchieren sie kurz folgende Begriffe:
+	\begin{enumerate}
+		\item Was ist unter einer Variablen zu verstehen?
+		\item Was kann unter einer Schleife (\emph{loop}) verstanden werden?
+		\item Was sind Kontrollstrukturen (\emph{control structures})?
+	\end{enumerate}
+\end{enumerate}
+
+\printbibliography
+
+\end{document}

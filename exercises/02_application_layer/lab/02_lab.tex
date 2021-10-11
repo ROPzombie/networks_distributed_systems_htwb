@@ -1,0 +1,165 @@
+%start preamble
+\documentclass[paper=a4,fontsize=11pt]{scrartcl}%kind of doc, font size, paper size
+
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+%\setsansfont{Liberation Sans}
+\usepackage{polyglossia}	
+\setdefaultlanguage[spelling=new, babelshorthands=true]{german}
+			
+\usepackage{amsmath}%get math done
+\usepackage{amsthm}%get theorems and proofs done
+\usepackage{graphicx}%get pictures & graphics done
+\graphicspath{{pictures/}}%folder to stash all kind of pictures etc
+\usepackage{amssymb}%symbolics for math
+\usepackage{amsfonts}%extra fonts
+\usepackage{caption}%captions under everything
+\usepackage{listings}
+\numberwithin{equation}{section} 
+\usepackage{float}%for garphics and how to let them floating around in the doc
+\usepackage{xcolor}%nicer colors, here used for links
+\usepackage{dsfont}
+\usepackage{stmaryrd}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{csquotes}
+\usepackage{enumitem}
+
+\usepackage[backend=biber,style=alphabetic,
+citestyle=alphabetic]{biblatex} %biblatex mit biber laden
+\addbibresource{sources.bib}
+
+%settings colors for links
+\hypersetup{
+    colorlinks,
+    linkcolor={blue!50!black},
+    citecolor={blue},
+    urlcolor={blue!80!black}
+}
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+
+\pagestyle{fancy}
+\lhead{NW+VS -- Übung\\WiSe 2021/22}
+\rhead{FB 4 -- IKG \\ HTW-Berlin}
+\lfoot{Übungsblatt 02 -- Application Layer}
+\cfoot{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\lstdefinestyle{Bash}{
+  language=bash,
+  showstringspaces=false,
+  basicstyle=\small\sffamily,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  frame=trlb,
+  columns=fullflexible,
+  backgroundcolor=\color{gray!20},
+  linewidth=0.9\linewidth,
+  %xleftmargin=0.5\linewidth
+}
+
+
+%%here begins the actual document%%
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\begin{document}
+\begin{center}
+\Large{\textbf{Übungsblatt 02 --  Application Layer}}
+\end{center}
+
+\begin{center}\Large{\textbf{Aufgabe A -- HTTP(S) \& HTML}}\end{center}\vskip0.25in
+\begin{enumerate}
+	\item Aus der letzten Übung haben sie die Datei \path{shell_tutorial.md}. Navigieren sie mithilfe der Kommandozeile in den entsprechenden Ordner. Nennen sie die Datei in \emph{index.html} um.
+	\item Finden sie die IP-Adresse ihres Rechners heraus. Nutzen sie folgendes Kommando:
+		\begin{lstlisting}[style=Bash, language=Bash]
+ifconfig em0
+\end{lstlisting}
+		Hinter dem Schlüsselwort \emph{inet} finden sie ihre IP-Adresse.
+	\item Python liefert ihnen eine rudimentären Webserver frei Haus. Starten sie im Ordner, wo die \path{shell_tutorial.md} Datei liegt folgendes Kommando:
+		\begin{lstlisting}[style=Bash, language=Bash]
+python3 -m http.server 8000
+		\end{lstlisting}
+	\item Mit dem Tool Wireshark können sie den Netzwerkverkehr aufzeichnen lassen. Starten sie Wireshark (im Menü unter Applications/Internet/Wireshark). Wählen sie unter \emph{Capture} als Schnittstelle \emph{em0} aus und starten sie den Mitschnitt (die blau Haiflosse oben links).
+	\item Rufen sie die Webseite mit \url{http://IP_ADDRESS:8000} im Browser auf.
+	\item Zeichnen sie diesen Aufruf parallel mit Wireshark auf. Finden sie heraus, welche Befehle der Browser an den Server zum  Abruf der HTML-Seite gesendet hat.
+	\item Verbinden Sie sich nun mit dem Kommandozeilen-Programm \emph{telnet} mit dem selben Server und Port.	
+	\begin{lstlisting}[style=Bash, language=Bash]
+telnet IP_ADDRESS 8000
+\end{lstlisting}
+	\item Nachdem die Verbindung hergestellt wurde, tippen sie die Befehle ein, die auch durch den Browser gesendet wurden und schauen sie, ob sie als Antwort ihre \path{shell_tutorial.md} Dateu erhalten.
+	\item Welche der vom Browser gesendeten Befehle müssen sie mindestens eingeben, um die Webseite zu sehen?
+	\item Wenn sie zu einem Server eine Verbindung aufbauen, wird serverseitig ein Timeout gestartet, so das, wenn nicht innerhalb einer gewissen Zeitspanne eine Anfrage kommt, der Server die Verbindung beendet. Wenn sie etwas umfangreichere Befehle an den Server senden müssen, oder das Ganze ohne manuellem Eintippen automatisieren wollen, können Sie das Tool \emph{netcat} nutzen.	
+	\item Mit dem Werkzeug \emph{netcat} können Website direkt über die Kommandozeile aufgerufen werden.
+	\begin{lstlisting}[style=Bash, language=Bash]
+nc -v IP_ADDRESS 8000
+\end{lstlisting}
+	\begin{enumerate}
+		\item Schreiben sie dieselben HTTP-Befehle zum Abruf der Webseite jetzt in eine lokale Textdatei (alle Zeilenumbrüche beachten!).
+		\item Lassen sie sich den Inhalt der Datei auf der Kommandozeile nach Std-Out ausgeben (\emph{cat}).
+		\item Leiten sie diese Ausgabe mittels einer Pipe als Eingabe in den Befehl \emph{netcat} um. Rufen Sie \emph{netcat} dabei mit  Parametern so auf, dass es eine Verbindung wieder zum gleichen Webserver und Port wie bisher aufbaut.\\
+ Wenn sie alles richtig gemacht haben, sehen sie wieder die gleiche Ausgabe.
+	\end{enumerate}
+	\item Damit bei Klartext-Protokollen keine Nutzerdaten durch Fremde mitgelesen werden können, werden von vielen Diensten die eigentlich originalen Protokolle in eine TLS-Verbindung verpackt, um die Daten für die Anwendung transparente zu verschlüsseln.\\
+Ein Programm um beliebige Verbindungen nachträglich mit SSL/TLS zu versehen ist Teil des \emph{OpenSSL}-Toolkits. Mit dem Befehl \emph{openssl s\_server} können sie Serveranwendungen, welche kein TLS unterstützen aber über Std-In Befehle entgegennehmen darüber absichern. Mit dem Befehl \texttt{openssl s\_client} wiederum können sie Client-Verbindungen mit TLS-Unterstützung aufbauen oder auch manuell ausführen.
+	\begin{enumerate}
+		\item Zeichnen sie alle Abrufe der Webseite mit mit Wireshark auf und prüfen sie, was sie dort sehen können.
+		\item Bauen Sie noch einmal testweise eine HTTP-Verbindung mit \emph{telnet} oder \emph{netcat} zum Webserver des Rechenzentrums der HTW (\url{www.rz.htw-berlin.de}) auf und fragen sie die Startseite an.
+ 		\item Nutzen sie nun anstelle von \emph{telnet} das Programm \texttt{openssl s\_client} um eine Verbindung zum gleichen Webserver aber auf dem \emph{HTTPS} Port aufzubauen (Welcher Port wird für HTTPS genutzt?). Rufen sie nach erfolgreichem Verbindungsaufbau wieder die Startseite ab.
+ 		\item Welche Informationen über den TLS-gesicherten Server bekommen Sie mit \texttt{openssl s\_client}? Wo sehen sie z.B. die Gültigkeit des Zertifikates? Den Zeitraum der Gültigkeit? Wer hat das Zertifikat ausgestellt?
+	\end{enumerate}
+\end{enumerate}
+
+\begin{center}\Large{\textbf{Aufgabe B -- Python}}\end{center}\vskip0.25in
+\begin{enumerate}
+	\item Starten sie eine interaktive Python-Session.
+	\begin{lstlisting}[style=Bash, language=Bash]
+python
+\end{lstlisting}
+	\begin{enumerate}
+		\item Python als Taschenrechner. Berechnen sie folgende Terme:
+		\begin{itemize}
+			\item $2 + 3$
+			\item $3.5 + 4.5$
+			\item $3 + 3.5$
+			\item 
+		\end{itemize}
+		\item Deklarieren sie folgende Variablen:
+		\begin{itemize}
+			\item Variable $a$ mit Wert $2$
+			\item Variable $b$ mit Wert $3$
+			\item Variable $c$ als Summe von $a$ und $b$
+			\item Eine Variable $s1$ die den Inhalt: \emph{Netzwerke} und eine Variable $s2$ mit dem Inhalt \emph{verteilte Systeme} enthält.
+			\item Fügen sie in der Variablen $s$ die beiden Texte $s1, s2$ zusammen.
+		\end{itemize}
+	\end{enumerate}
+\end{enumerate}
+
+\begin{center}\Large{\textbf{Aufgabe C -- E-Mail mit POP3, IMAPv4 \& SMTP}}\end{center}\vskip0.25in
+Zum Abruf von E-Mails gibt es die beiden Protokolle \emph{POP3} und \emph{IMAPv4}.
+\begin{enumerate}
+	\item Bauen Sie nun mit \texttt{openssl s\_client} eine gesicherte Verbindung zum einem Ihrer Mail-Server (z.B. dem der HTW-Berlin: \url{mail.rz.htw-berlin.de}) auf und loggen Sie sich auf Ihrem Account ein, um dann Ihre Mails abzurufen.\\
+	{\color{red}\textbf{Achtung -- bitte loggen Sie sich nicht ohne TLS aus dem Labor heraus auf einem Mailserver ein. Andere Studierende werden sicherlich parallel Wireshark  laufen lassen und könnten dann Ihre Zugangsdaten sehen!}}
+	\item Bauen Sie mit \texttt{openssl s\_client} eine Verbindung zum POP3-SSL Port auf und loggen Sie sich mit Ihren Nutzerdaten ein. Anschließend rufen Sie erst die Liste aller Nachrichten und dann eine spezielle Nachricht ab, um sie zu lesen. (Eine beispielhafte POP3-Session mit den notwendigen Befehlen finden Sie leicht im Netz oder z.B. bei Wikipedia).
+	\item Setzen Sie das Gleiche mit \emph{IMAP} um.
+	\textbf{Hinweis}: alle Mail-Protokolle unterstützen auch das \emph{STARTTLS} Kommando. Damit kann eine nicht gesicherte Verbindung nachträglich noch mit TLS abgesichert werden. Sie bauen also im Klartext z.B. zum POP3 Server auf dem Standard-Port eine Verbindung auf und senden dann im Klartext das Kommando \texttt{STARTTLS}. Daraufhin wird auf diesem Port eine verschlüsselte Verbindung aufgebaut und alle nachfolgenden Befehle können nicht mehr von anderen mitgelesen werden. OpenSSL/LibreSSL unterstützt dies auch für etliche Protokolle.
+	\item Starten Sie \texttt{openssl s\_client} und mit dem Parameter \texttt{starttls} eine gesicherte Verbindung zum POP3-Standard-Port. Versuchen Sie sich dann mit falschen Login-Daten anzumelden. Beenden Sie die Verbindung.
+ 	\item Zeichnen Sie den Verbindungsaufbau parallel mit Wireshark auf und prüfen Sie, was sie davon sehen können.
+	\textbf{Hinweis}: Sollten Sie kein E-Mail-Programm griffbereit haben, können Sie das natürlich auch das per Hand erledigen. Das SMTP-Protokoll ist ebenfalls relativ einfach und text-basiert.
+ 	\item Bauen Sie mit \texttt{openssl s\_client} nacheinander eine Verbindung zu allen drei SMTP-Ports auf. Finden Sie heraus, welche Ports direkt mit SSL gesichert sind und welche Ports mit STARTTLS nachträglich gesichert werden müssen.
+ 	\item Loggen Sie sich nun auf dem SSL-Port mit openssl ein und versenden Sie eine E-Mail.\\
+ 	\textbf{Hinweis}: Viele Server nutzen inzwischen beim Versand zur Spambekämpfung \emph{SMTP-AUTH} (SMTP-Authentication) um nur eigenen Nutzern zu erlauben, Mails an fremde Server zu versenden. An eigene E-Mail-Adressen des SMTP-Server können Sie aber immer senden (d.h. wenn Sie mit dem SMTP-Server der HTW verbunden sind, können sie immer eine E-Mail an eine Empfängeradresse \enquote{s0XXXXXX@htw-berlin.de} senden. Wollen Sie eine E-Mail an z.B. \enquote{...@posteo.de} senden, müssen Sie sich vorher authentifizieren.
+\end{enumerate}
+
+
+
+\end{document}
