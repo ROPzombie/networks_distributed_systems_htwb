@@ -26,6 +26,7 @@
 \usepackage{multicol}
 \usepackage{csquotes}
 \usepackage{enumitem}
+\usepackage{pythonhighlight}
 
 \usepackage[backend=biber,style=alphabetic,
 citestyle=alphabetic]{biblatex} %biblatex mit biber laden
@@ -68,6 +69,19 @@ citestyle=alphabetic]{biblatex} %biblatex mit biber laden
   %xleftmargin=0.5\linewidth
 }
 
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+morekeywords={self},              % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false
+}}
+
 
 %%here begins the actual document%%
 \newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
@@ -87,7 +101,7 @@ ifconfig em0
 		Hinter dem Schlüsselwort \emph{inet} finden sie ihre IP-Adresse.
 	\item Python liefert ihnen eine rudimentären Webserver frei Haus. Starten sie im Ordner, wo die \path{shell_tutorial.md} Datei liegt folgendes Kommando:
 		\begin{lstlisting}[style=Bash, language=Bash]
-python3 -m http.server 8000
+python3.8 -m http.server 8000
 		\end{lstlisting}
 	\item Mit dem Tool Wireshark können sie den Netzwerkverkehr aufzeichnen lassen. Starten sie Wireshark (im Menü unter Applications/Internet/Wireshark). Wählen sie unter \emph{Capture} als Schnittstelle \emph{em0} aus und starten sie den Mitschnitt (die blau Haiflosse oben links).
 	\item Rufen sie die Webseite mit \url{http://IP_ADDRESS:8000} im Browser auf.
@@ -125,23 +139,52 @@ Ein Programm um beliebige Verbindungen nachträglich mit SSL/TLS zu versehen ist
 	\begin{lstlisting}[style=Bash, language=Bash]
 python
 \end{lstlisting}
+	\item Python als Taschenrechner.
 	\begin{enumerate}
-		\item Python als Taschenrechner. Berechnen sie folgende Terme:
+	\item Berechnen sie folgende Terme:
 		\begin{itemize}
 			\item $2 + 3$
 			\item $3.5 + 4.5$
 			\item $3 + 3.5$
-			\item 
 		\end{itemize}
+		Lassen sie sich mit \emph{type()} den jeweiligen Datentyp ausgeben.
 		\item Deklarieren sie folgende Variablen:
 		\begin{itemize}
 			\item Variable $a$ mit Wert $2$
 			\item Variable $b$ mit Wert $3$
 			\item Variable $c$ als Summe von $a$ und $b$
 			\item Eine Variable $s1$ die den Inhalt: \emph{Netzwerke} und eine Variable $s2$ mit dem Inhalt \emph{verteilte Systeme} enthält.
-			\item Fügen sie in der Variablen $s$ die beiden Texte $s1, s2$ zusammen.
+			\item Fügen sie in der Variablen $s$ die beiden Texte $s1, s2$ mit dem $+$ Operator zusammen.
 		\end{itemize}
 	\end{enumerate}
+	\item Mithilfe der \emph{print()} Funktion können Ausgaben auf der Kommandozeile ausgegeben werden.
+	\begin{enumerate}
+		\item \enquote{printen} sie die Zeile \enquote{Hallo, Welt!} auf der Kommandozeile.
+	\end{enumerate}
+	\item Kontrollstrukturen:
+	\begin{python}
+if x % 2:
+	print("x is even")
+else:
+	print("x is odd")
+\end{python}
+	\begin{enumerate}
+		\item Schreiben und testen sie eine Block der prüft, ob zwei Variablen numerisch identisch sind (\enquote{$==$}). 
+		\item Schreiben und testen sie eine Block der eine Ausgabe ausführt, wenn die erste Variable größer als die zweite ist.
+	\end{enumerate}
+	\item For-Schleifen:
+\begin{python}
+for i in range(X) # X ist hier die Anzahl der Wiederholungen
+\end{python}
+	\begin{enumerate}
+		\item Schreiben und testen sie mithilfe eine For-Schleife, die ihnen 10 mal \enquote{Hallo, Welt!} ausgibt.
+		\item Schreiben und testen sie mithilfe einer For-Schleife die Gaußsche Summenformel. Also die Summe der Zahlen von $0$ bis $m$
+		$$ 0 + 1 + 2 + ... + m = \sum_{k=0}^m k$$
+	\end{enumerate}
+\item While-Schleifen:
+\begin{python}
+for i in range(X) # X ist hier die Anzahl der Wiederholungen
+\end{python}
 \end{enumerate}
 
 \begin{center}\Large{\textbf{Aufgabe C -- E-Mail mit POP3, IMAPv4 \& SMTP}}\end{center}\vskip0.25in

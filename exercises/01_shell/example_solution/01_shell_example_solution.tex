@@ -30,7 +30,9 @@
 \usepackage{geometry}
 \usepackage{fancyhdr}
 \usepackage{menukeys}
-\usepackage{csquotes}
+\usepackage{enumitem}
+
+
 
 %settings colors for links
 \hypersetup{
@@ -46,13 +48,14 @@
 \definecolor{pgrey}{rgb}{0.46,0.45,0.48}
 
 \pagestyle{fancy}
-\lhead{Netzwerke Übung (WiSe 2019/20)}
-\rhead{FB 4 -- Angewandte Informatik\\ HTW-Berlin}
-\lfoot{Übungsblatt 1 -- Grundlagen Linux \& Shell}
+\lhead{Netzwerke und verteilte Systeme\\
+ Übung\\ Wintersemester 2021/22}
+\rhead{FB-4\\Informatik in Kultur und Gesundheit\\ HTW-Berlin}
+\lfoot{Virtualisierung mit VirtualBox}
 \cfoot{}
 \fancyfoot[R]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0.4pt}
 
 \lstdefinestyle{Bash}{
   language=bash,
@@ -71,16 +74,6 @@
   literate={*}{{\char42}}1
          {-}{{\char45}}1
 }
-
-
-\newlength\labelwd
-\settowidth\labelwd{\bfseries viii.)}
-\usepackage{tasks}
-\settasks{counter-format =tsk[a].), label-format=\bfseries, label-offset=3em, label-align=right, label-width
-=\labelwd, before-skip =\smallskipamount, after-item-skip=0pt}
-\usepackage[inline]{enumitem}
-\setlist[enumerate]{% (
-labelindent = 0pt, leftmargin=*, itemsep=12pt, label={\textbf{\arabic*.)}}}
 
 
 %%here begins the actual document%%
