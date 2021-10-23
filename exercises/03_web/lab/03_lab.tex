@@ -1,0 +1,158 @@
+%start preamble
+\documentclass[paper=a4,fontsize=11pt]{scrartcl}%kind of doc, font size, paper size
+
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+%\setsansfont{Liberation Sans}
+\usepackage{polyglossia}	
+\setdefaultlanguage[spelling=new, babelshorthands=true]{german}
+			
+\usepackage{amsmath}%get math done
+\usepackage{amsthm}%get theorems and proofs done
+\usepackage{graphicx}%get pictures & graphics done
+\graphicspath{{pictures/}}%folder to stash all kind of pictures etc
+\usepackage{amssymb}%symbolics for math
+\usepackage{amsfonts}%extra fonts
+\usepackage{caption}%captions under everything
+\usepackage{listings}
+\numberwithin{equation}{section} 
+\usepackage{float}%for garphics and how to let them floating around in the doc
+\usepackage{xcolor}%nicer colors, here used for links
+\usepackage{dsfont}
+\usepackage{stmaryrd}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{csquotes}
+\usepackage{enumitem}
+\usepackage{pythonhighlight}
+
+\usepackage[backend=biber,style=alphabetic,
+citestyle=alphabetic]{biblatex} %biblatex mit biber laden
+\addbibresource{sources.bib}
+
+%settings colors for links
+\hypersetup{
+    colorlinks,
+    linkcolor={blue!50!black},
+    citecolor={blue},
+    urlcolor={blue!80!black}
+}
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+
+\pagestyle{fancy}
+\lhead{NW+VS -- Übung\\WiSe 2021/22}
+\rhead{FB 4 -- IKG \\ HTW-Berlin}
+\lfoot{Übungsblatt 02 -- Application Layer}
+\cfoot{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\lstdefinestyle{Bash}{
+  language=bash,
+  showstringspaces=false,
+  basicstyle=\small\sffamily,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  frame=trlb,
+  columns=fullflexible,
+  backgroundcolor=\color{gray!20},
+  linewidth=0.9\linewidth,
+  %xleftmargin=0.5\linewidth
+}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+morekeywords={self},              % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false
+}}
+
+
+%%here begins the actual document%%
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\begin{document}
+\begin{center}
+\Large{\textbf{Übungsblatt 02 --  Application Layer}}
+\end{center}
+
+\begin{center}\Large{\textbf{Aufgabe A -- Scapy}}\end{center}\vskip0.25in
+Eine gute Anlaufstelle für die Benutzung von \emph{Scapy} finden sie unter: \url{https://scapy.readthedocs.io/en/latest/introduction.html}.
+\begin{enumerate}
+	\item Starten sie eine interaktive \emph{Scapy}-Session mithilfe des Terminals:
+	\begin{lstlisting}[style=Bash, language=Bash]
+scapy
+	\end{lstlisting}
+	Die funktioniert analog zur \emph{ipython} Shell.
+	\begin{enumerate}
+		\item Welche \emph{HTTP}-Protokolle und Funktionalitäten unterstützt \emph{Scapy}?
+		\begin{python}
+>>> explore(scapy.layers.http)
+\end{python}
+		\item Lassen sie in \emph{Scapy} zeigen, wie eine Default-HTTP-Request aussieht.
+		\item Lassen sie in \emph{Scapy} zeigen, wie eine Default-HTTP-Response aussieht.
+	\end{enumerate}		
+	\item Wie können sie einzelne Layer (also Protokolle) laden?
+	\item Laden sie den \emph{http}-Layer.
+	\item Lesen sie folgenden \emph{HTTP}-Request:
+	\begin{python}
+load_layer("http")
+req = HTTP()/HTTPRequest(
+    Accept_Encoding=b'gzip, deflate',
+    Cache_Control=b'no-cache',
+    Connection=b'keep-alive',
+    Host=b'HERE.WEB.URL',
+    Pragma=b'no-cache'
+)
+a = TCP_client.tcplink(HTTP, "HERE.WEB.URL", PORT)
+answser = a.sr1(req)
+a.close()
+with open("HERE.WEB.URL", "wb") as file:
+    file.write(answser.load)
+\end{python}
+	\item Passen sie den Code so an, dass sie eine \emph{HTTP}-Anfrage an den Webserver der HTW stellen können.
+\end{enumerate}
+
+\begin{center}\Large{\textbf{Aufgabe B -- Chat-Server}}\end{center}\vskip0.25in
+
+\begin{enumerate}
+	\item unter folgender \emph{URL} finden sie den Code für den Chat-Server:
+	\begin{enumerate}
+		\item Laden sie den Code mittels \emph{wget} herunter. Lassen sie parallel Wireshark laufen und untersuchen sie den Ablauf.
+		\item Öffnen sie den Server-Code und passen sie die stellen an, sodass der Server auf ihrer VM lauffähig ist.
+		\item Welche IP-Adresse können sie nutzen und wie bringen sie diese in Erfahrung?
+		\item Welchen Port können sie dem Server geben? Für welche Ports benötigen sie spezielle Rechte und für welche nicht?
+		\item Geben sie dem Server entsprechende Rechte, um auf der VM ausführbar zu sein.\\
+		Welches Recht benötigt der Server um ausführbar zu sein.
+		\item Testen sie anschließend, ob ihr Server tatsächlich funktioniert.
+	\end{enumerate}
+	\item unter folgender \emph{URL} finden sie den Code für den Chat-Client:
+	\begin{enumerate}
+		\item Laden sie den Code mittels \emph{cURL} herunter. Lassen sie parallel Wireshark laufen und untersuchen sie den Ablauf.
+		\item Öffnen sie den Client-Code und passen sie die stellen an, sodass der Server auf ihrer VM lauffähig ist.
+		\item Welche IP-Adresse können sie nutzen und wie bringen sie diese in Erfahrung?
+		\item Welchen Port können sie dem Client geben? Für welche Ports benötigen sie spezielle Rechte und für welche nicht?
+		\item Geben sie dem Client entsprechende Rechte, um auf der VM ausführbar zu sein.\\
+		Welches Recht benötigt der Server um ausführbar zu sein.
+		\item Testen sie anschließend, ob ihr Server tatsächlich funktioniert.
+	\end{enumerate}
+	\item Wenn beide Applikationen laufen: Können sie den Server einer anderen VM erreichen? 
+	\item Können sich innerhalb ihrer VM mehrere Clients auf die VM \enquote{connecten}?
+\end{enumerate}
+
+\end{document}
