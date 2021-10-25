@@ -93,7 +93,7 @@ showstringspaces=false
 
 \begin{center}\Large{\textbf{Aufgabe A -- HTTP(S) \& HTML}}\end{center}\vskip0.25in
 \begin{enumerate}
-	\item Aus der letzten Übung haben sie die Datei \path{shell_tutorial.md}. Navigieren sie mithilfe der Kommandozeile in den entsprechenden Ordner. Nennen sie die Datei in \emph{index.html} um.
+	\item Aus der letzten Übung haben sie die Datei \path{shell_tutorial.md}. Navigieren sie mithilfe der Kommandozeile in den entsprechenden Ordner. Benennen sie die Datei in \emph{index.html} um.
 	\item Finden sie die IP-Adresse ihres Rechners heraus. Nutzen sie folgendes Kommando:
 		\begin{lstlisting}[style=Bash, language=Bash]
 ifconfig em0
@@ -102,15 +102,23 @@ ifconfig em0
 	\item Python liefert ihnen eine rudimentären Webserver frei Haus. Starten sie im Ordner, wo die \path{shell_tutorial.md} Datei liegt folgendes Kommando:
 		\begin{lstlisting}[style=Bash, language=Bash]
 python3.8 -m http.server 8000
+#Fuer die alte VM:
+python3.7 -m http.server 8000
 		\end{lstlisting}
-	\item Mit dem Tool Wireshark können sie den Netzwerkverkehr aufzeichnen lassen. Starten sie Wireshark (im Menü unter Applications/Internet/Wireshark). Wählen sie unter \emph{Capture} als Schnittstelle \emph{em0} aus und starten sie den Mitschnitt (die blau Haiflosse oben links).
-	\item Rufen sie die Webseite mit \url{http://IP_ADDRESS:8000} im Browser auf.
+		Der Server läuft per Default auf dem Localhost-Adapter und ist extern nicht erreichbar.
+	\item Mit dem Tool Wireshark können sie den Netzwerkverkehr aufzeichnen lassen. Starten sie Wireshark (im Menü unter Applications/Internet/Wireshark). Wählen sie unter \emph{Capture} als Schnittstelle \emph{loopback lo0} aus und starten sie den Mitschnitt (die blau Haiflosse oben links).
+	\item Rufen sie die Webseite mit \url{http://IP_ADDRESS:8000} (alternativ: \url{localhost:8000} im Browser auf. \\ \textbf{Hinweis: \textit{IP\_ADDRESS} muss durch die IP-Adresse aus der zweiten Aufgabe ersetzt werden.}
 	\item Zeichnen sie diesen Aufruf parallel mit Wireshark auf. Finden sie heraus, welche Befehle der Browser an den Server zum  Abruf der HTML-Seite gesendet hat.
-	\item Verbinden Sie sich nun mit dem Kommandozeilen-Programm \emph{telnet} mit dem selben Server und Port.	
+	\begin{enumerate}
+		\item Setzen sie den Filter hierfür auf das Protokoll \emph{http}.
+		\item Öffnen sie einen \emph{HTTP}-Request.
+		\item Schauen sie in das \emph{HTT}-Protokoll. Dort finden sie den \emph{GET} Aufruf, sowie einige zusätzliche Parameter.
+	\end{enumerate}
+	\item Verbinden Sie sich nun via Kommandozeilen-Programm \emph{telnet} mit dem selben Server und Port.	
 	\begin{lstlisting}[style=Bash, language=Bash]
 telnet IP_ADDRESS 8000
 \end{lstlisting}
-	\item Nachdem die Verbindung hergestellt wurde, tippen sie die Befehle ein, die auch durch den Browser gesendet wurden und schauen sie, ob sie als Antwort ihre \path{shell_tutorial.md} Dateu erhalten.
+	\item Nachdem die Verbindung hergestellt wurde, tippen sie die Befehle ein, die auch durch den Browser gesendet wurden und schauen sie, ob sie als Antwort ihre \path{shell_tutorial.md/index.html} Datei erhalten.
 	\item Welche der vom Browser gesendeten Befehle müssen sie mindestens eingeben, um die Webseite zu sehen?
 	\item Wenn sie zu einem Server eine Verbindung aufbauen, wird serverseitig ein Timeout gestartet, so das, wenn nicht innerhalb einer gewissen Zeitspanne eine Anfrage kommt, der Server die Verbindung beendet. Wenn sie etwas umfangreichere Befehle an den Server senden müssen, oder das Ganze ohne manuellem Eintippen automatisieren wollen, können Sie das Tool \emph{netcat} nutzen.	
 	\item Mit dem Werkzeug \emph{netcat} können Website direkt über die Kommandozeile aufgerufen werden.
@@ -118,7 +126,11 @@ telnet IP_ADDRESS 8000
 nc -v IP_ADDRESS 8000
 \end{lstlisting}
 	\begin{enumerate}
-		\item Schreiben sie dieselben HTTP-Befehle zum Abruf der Webseite jetzt in eine lokale Textdatei (alle Zeilenumbrüche beachten!).
+		\item Schreiben sie die gleichen HTTP-Befehle zum Abruf der Webseite jetzt in eine lokale Textdatei (alle Zeilenumbrüche beachten!).\\
+		Die können sie mithilfe der \emph{printf} Funktion beispielsweise lösen:
+		\begin{lstlisting}[style=Bash, language=Bash]
+printf "GET \ HTTP1.1 ..." > request
+\end{lstlisting}
 		\item Lassen sie sich den Inhalt der Datei auf der Kommandozeile nach Std-Out ausgeben (\emph{cat}).
 		\item Leiten sie diese Ausgabe mittels einer Pipe als Eingabe in den Befehl \emph{netcat} um. Rufen Sie \emph{netcat} dabei mit  Parametern so auf, dass es eine Verbindung wieder zum gleichen Webserver und Port wie bisher aufbaut.\\
  Wenn sie alles richtig gemacht haben, sehen sie wieder die gleiche Ausgabe.
@@ -126,10 +138,14 @@ nc -v IP_ADDRESS 8000
 	\item Damit bei Klartext-Protokollen keine Nutzerdaten durch Fremde mitgelesen werden können, werden von vielen Diensten die eigentlich originalen Protokolle in eine TLS-Verbindung verpackt, um die Daten für die Anwendung transparente zu verschlüsseln.\\
 Ein Programm um beliebige Verbindungen nachträglich mit SSL/TLS zu versehen ist Teil des \emph{OpenSSL}-Toolkits. Mit dem Befehl \emph{openssl s\_server} können sie Serveranwendungen, welche kein TLS unterstützen aber über Std-In Befehle entgegennehmen darüber absichern. Mit dem Befehl \texttt{openssl s\_client} wiederum können sie Client-Verbindungen mit TLS-Unterstützung aufbauen oder auch manuell ausführen.
 	\begin{enumerate}
-		\item Zeichnen sie alle Abrufe der Webseite mit mit Wireshark auf und prüfen sie, was sie dort sehen können.
+		\item Zeichnen sie alle Abrufe der Webseite mit mit Wireshark auf und prüfen sie, was sie dort sehen können.\\ \textbf{Achtung: Sie müssen hierfür bei Wireshark den Adapter auf \emph{em0} setzen, da die Verbindungen nicht über den Localhost laufen!}
 		\item Bauen Sie noch einmal testweise eine HTTP-Verbindung mit \emph{telnet} oder \emph{netcat} zum Webserver des Rechenzentrums der HTW (\url{www.rz.htw-berlin.de}) auf und fragen sie die Startseite an.
- 		\item Nutzen sie nun anstelle von \emph{telnet} das Programm \texttt{openssl s\_client} um eine Verbindung zum gleichen Webserver aber auf dem \emph{HTTPS} Port aufzubauen (Welcher Port wird für HTTPS genutzt?). Rufen sie nach erfolgreichem Verbindungsaufbau wieder die Startseite ab.
+ 		\item Nutzen sie nun anstelle von \emph{telnet} das Programm \texttt{openssl s\_client} um eine Verbindung zum gleichen Webserver aber auf dem \emph{HTTPS} Port aufzubauen (Welcher Port wird für HTTPS genutzt?). Rufen sie nach erfolgreichem Verbindungsaufbau wieder die Startseite ab. Dazu müssen \emph{openssl s\_cleint} vie folgt aufrufen:
+ 		\begin{lstlisting}[style=Bash, language=Bash]
+openssl s_client -connect HOSTNAME:PORT
+\end{lstlisting}
  		\item Welche Informationen über den TLS-gesicherten Server bekommen Sie mit \texttt{openssl s\_client}? Wo sehen sie z.B. die Gültigkeit des Zertifikates? Den Zeitraum der Gültigkeit? Wer hat das Zertifikat ausgestellt?
+ 		\item Setzen sie nach erfolgreicher Verbindung ihren \emph{HTTP}-Request ab.
 	\end{enumerate}
 \end{enumerate}
 
