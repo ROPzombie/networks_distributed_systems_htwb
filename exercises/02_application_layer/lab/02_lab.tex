@@ -99,7 +99,7 @@ showstringspaces=false
 ifconfig em0
 \end{lstlisting}
 		Hinter dem Schlüsselwort \emph{inet} finden sie ihre IP-Adresse.
-	\item Python liefert ihnen eine rudimentären Webserver frei Haus. Starten sie im Ordner, wo die \path{shell_tutorial.md} Datei liegt folgendes Kommando:
+	\item Python liefert ihnen eine rudimentären Webserver frei Haus. Starten sie im Ordner, wo die \path{shell_tutorial.md/index.html} Datei liegt folgendes Kommando:
 		\begin{lstlisting}[style=Bash, language=Bash]
 python3.8 -m http.server 8000
 #Fuer die alte VM:
@@ -107,14 +107,14 @@ python3.7 -m http.server 8000
 		\end{lstlisting}
 		Der Server läuft per Default auf dem Localhost-Adapter und ist extern nicht erreichbar.
 	\item Mit dem Tool Wireshark können sie den Netzwerkverkehr aufzeichnen lassen. Starten sie Wireshark (im Menü unter Applications/Internet/Wireshark). Wählen sie unter \emph{Capture} als Schnittstelle \emph{loopback lo0} aus und starten sie den Mitschnitt (die blau Haiflosse oben links).
-	\item Rufen sie die Webseite mit \url{http://IP_ADDRESS:8000} (alternativ: \url{localhost:8000} im Browser auf. \\ \textbf{Hinweis: \textit{IP\_ADDRESS} muss durch die IP-Adresse aus der zweiten Aufgabe ersetzt werden.}
+	\item Rufen sie die Webseite mit \url{http://IP_ADDRESS:8000} (alternativ: \url{localhost:8000}) im Browser auf. \\ \textbf{Hinweis: \textit{IP\_ADDRESS} muss durch die IP-Adresse aus der zweiten Aufgabe ersetzt werden.}
 	\item Zeichnen sie diesen Aufruf parallel mit Wireshark auf. Finden sie heraus, welche Befehle der Browser an den Server zum  Abruf der HTML-Seite gesendet hat.
 	\begin{enumerate}
-		\item Setzen sie den Filter hierfür auf das Protokoll \emph{http}.
-		\item Öffnen sie einen \emph{HTTP}-Request.
-		\item Schauen sie in das \emph{HTT}-Protokoll. Dort finden sie den \emph{GET} Aufruf, sowie einige zusätzliche Parameter.
+		\item Setzen sie den Filter hierfür auf das Protokoll \emph{http} (Capture Filter).
+		\item Öffnen sie einen \emph{HTTP}-Request (aufklappen eines Eintrags).
+		\item Schauen sie in das \emph{HTT}-Protokoll (Vorletzter Eintrag im Protokollstapel). Dort finden sie den \emph{GET} Aufruf, sowie einige zusätzliche Parameter.
 	\end{enumerate}
-	\item Verbinden Sie sich nun via Kommandozeilen-Programm \emph{telnet} mit dem selben Server und Port.	
+	\item Verbinden sie sich nun via Kommandozeilen-Programm \emph{telnet} mit dem selben Server und Port.	
 	\begin{lstlisting}[style=Bash, language=Bash]
 telnet IP_ADDRESS 8000
 \end{lstlisting}
@@ -127,16 +127,17 @@ nc -v IP_ADDRESS 8000
 \end{lstlisting}
 	\begin{enumerate}
 		\item Schreiben sie die gleichen HTTP-Befehle zum Abruf der Webseite jetzt in eine lokale Textdatei (alle Zeilenumbrüche beachten!).\\
-		Die können sie mithilfe der \emph{printf} Funktion beispielsweise lösen:
+		Dise können sie mithilfe der \emph{printf} Funktion beispielsweise lösen:
 		\begin{lstlisting}[style=Bash, language=Bash]
 printf "GET \ HTTP1.1 ..." > request
 \end{lstlisting}
+		Alternativ könne sie dies auch via \emph{vim} erledigen.
 		\item Lassen sie sich den Inhalt der Datei auf der Kommandozeile nach Std-Out ausgeben (\emph{cat}).
-		\item Leiten sie diese Ausgabe mittels einer Pipe als Eingabe in den Befehl \emph{netcat} um. Rufen Sie \emph{netcat} dabei mit  Parametern so auf, dass es eine Verbindung wieder zum gleichen Webserver und Port wie bisher aufbaut.\\
- Wenn sie alles richtig gemacht haben, sehen sie wieder die gleiche Ausgabe.
+		\item Leiten sie diese Ausgabe mittels einer \emph{Pipe} (\path{|}) als Eingabe in den Befehl \emph{netcat} um. Rufen sie \emph{netcat} dabei mit Parametern so auf, dass es eine Verbindung wieder zum gleichen Webserver und Port wie bisher aufbaut.\\
+		Wenn sie alles richtig gemacht haben, sehen sie wieder die gleiche Ausgabe.
 	\end{enumerate}
-	\item Damit bei Klartext-Protokollen keine Nutzerdaten durch Fremde mitgelesen werden können, werden von vielen Diensten die eigentlich originalen Protokolle in eine TLS-Verbindung verpackt, um die Daten für die Anwendung transparente zu verschlüsseln.\\
-Ein Programm um beliebige Verbindungen nachträglich mit SSL/TLS zu versehen ist Teil des \emph{OpenSSL}-Toolkits. Mit dem Befehl \emph{openssl s\_server} können sie Serveranwendungen, welche kein TLS unterstützen aber über Std-In Befehle entgegennehmen darüber absichern. Mit dem Befehl \texttt{openssl s\_client} wiederum können sie Client-Verbindungen mit TLS-Unterstützung aufbauen oder auch manuell ausführen.
+	\item Bis jetzt werden ihre Daten im Klartext übertragen, Fremde können also prinzipiell ihre Verkehr mitlesen. Mithilfe eines zusätzlichen Protokolls kann der Verkehr für den Nutzer transparent verschlüsselt werden.\\
+		Ein Programm um beliebige Verbindungen nachträglich mit SSL/TLS zu versehen ist Teil des \emph{OpenSSL}-Toolkits. Mit dem Befehl \emph{openssl s\_server} können sie Serveranwendungen, welche kein TLS unterstützen aber über Std-In Befehle entgegennehmen darüber absichern. Mit dem Befehl \texttt{openssl s\_client} wiederum können sie Client-Verbindungen mit TLS-Unterstützung aufbauen oder auch manuell ausführen.
 	\begin{enumerate}
 		\item Zeichnen sie alle Abrufe der Webseite mit mit Wireshark auf und prüfen sie, was sie dort sehen können.\\ \textbf{Achtung: Sie müssen hierfür bei Wireshark den Adapter auf \emph{em0} setzen, da die Verbindungen nicht über den Localhost laufen!}
 		\item Bauen Sie noch einmal testweise eine HTTP-Verbindung mit \emph{telnet} oder \emph{netcat} zum Webserver des Rechenzentrums der HTW (\url{www.rz.htw-berlin.de}) auf und fragen sie die Startseite an.
@@ -199,11 +200,27 @@ for i in range(X) # X ist hier die Anzahl der Wiederholungen
 	\end{enumerate}
 \item While-Schleifen:
 \begin{python}
-for i in range(X) # X ist hier die Anzahl der Wiederholungen
+while i <= n: # X ist hier die Anzahl der Wiederholungen
 \end{python}
+	\begin{enumerate}
+	\item Schreiben sie eine \emph{While}-Schleife, die alle Zahlen kleiner der Variablen $c$ nacheinander ausgibt.
+	\end{enumerate}
+	\item Funktionen
+	\begin{python}
+	def foo(): # Funktion ohne Argument
+	def bar("Blub"): #Funktion mit Argument hard coded
+	def bar2(m): Funktion mit Argument als Variable
+	def square(x): # Funktion mit Argument und Rückgabewert
+		return x**2
+	\end{python}
+\begin{enumerate}
+	\item Schreiben sie eine Funktion \texttt{euclid} die den euklidischen Algorithmus implementiert. Nutzen sie eine Funktiosdeklaration.
+\end{enumerate}
 \end{enumerate}
 
-\begin{center}\Large{\textbf{Aufgabe C -- E-Mail mit POP3, IMAPv4 \& SMTP}}\end{center}\vskip0.25in
+\newpage
+
+\begin{center}\Large{\textbf{Fakultativ: Aufgabe C -- E-Mail mit POP3, IMAPv4 \& SMTP}}\end{center}\vskip0.25in
 Zum Abruf von E-Mails gibt es die beiden Protokolle \emph{POP3} und \emph{IMAPv4}.
 \begin{enumerate}
 	\item Bauen Sie nun mit \texttt{openssl s\_client} eine gesicherte Verbindung zum einem Ihrer Mail-Server (z.B. dem der HTW-Berlin: \url{mail.rz.htw-berlin.de}) auf und loggen Sie sich auf Ihrem Account ein, um dann Ihre Mails abzurufen.\\
