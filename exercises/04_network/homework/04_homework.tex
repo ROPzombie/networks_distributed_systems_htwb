@@ -13,21 +13,21 @@
 \graphicspath{{pictures/}}%folder to stash all kind of pictures etc
 \usepackage{amssymb}%symbolics for math
 \usepackage{amsfonts}%extra fonts
-\usepackage []{natbib}%citation style
 \usepackage{caption}%captions under everything
 \usepackage{listings}
 \usepackage[titletoc]{appendix}
 \numberwithin{equation}{section} 
-\usepackage[printonlyused,withpage]{acronym}%how to handle acronyms
 \usepackage{float}%for garphics and how to let them floating around in the doc
 \usepackage{wrapfig}%making graphics floated by text and not done by minipage
-\usepackage{geometry}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
-\usepackage{menukeys}
 \usepackage{xcolor}%nicer colors, here used for links
 \usepackage{csquotes}
 \usepackage{enumitem}
+
+\usepackage[backend=biber,style=alphabetic,
+citestyle=alphabetic]{biblatex} %biblatex mit biber laden
+\addbibresource{sources.bib}
 
 %settings colors for links
 \hypersetup{
@@ -42,10 +42,11 @@
 \definecolor{pred}{rgb}{0.9,0,0}
 \definecolor{pgrey}{rgb}{0.46,0.45,0.48}
 
+
 \pagestyle{fancy}
 \lhead{NW \& VS -- Übung\\Wintersemester 2021/22}
 \rhead{FB 4 -- Angewandte Informatik\\ HTW-Berlin}
-\lfoot{Übungsblatt 02 -- Netzwerkinfrastruktur}
+\lfoot{Übungsblatt 04 -- Netzwerkinfrastruktur}
 \cfoot{}
 \fancyfoot[R]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -72,12 +73,12 @@
 
 \begin{document}
 \begin{center}
-\Large{\textbf{Übungsblatt 2 -- Netzwerkinfrastruktur}}
+\Large{\textbf{Übungsblatt 4 -- Netzwerkinfrastruktur}}
 \end{center}
 
 \begin{center}\Large{\textbf{Aufgabe A - Wiederholung Vorlesung\\Planung des physischen Netzes}}\end{center}
 
-Sie planen ein kleines Netzwerk, bestehend aus drei bis vier Rechnern (also drei/vier VMs -- im Labor sind dies drei Rechner). Hierfür sollen sie zunächst die Infrastruktur planen.
+Sie planen ein kleines Netzwerk, bestehend aus drei bis vier Rechnern (also drei/vier VMs). Hierfür sollen sie zunächst die Infrastruktur planen.
 \begin{enumerate}
 	\item Ihr Netzwerk soll aus drei Rechnern bestehen. Diese drei Rechner sind über einen Switch verbunden. In der Virtualisierung haben sie keinen physischen Switch, wir konfigurieren lediglich die Virtualisierungsumgebung, sodass das Netzwerk, wie ein Switched Network arbeitet.\\
 	\item Wir realisieren eine Stermtopologie. Recherchieren sie kurz, was eine Topologie im Bereich Rechnernetze ist.
@@ -144,45 +145,7 @@ Mithilfe der Werkzeugsammlungen \emph{iproute2} sowie \emph{net-tools} wird dies
 \end{enumerate}	 
 \end{enumerate}
 
-\begin{center}\Large{\textbf{Aufgabe D -- Laborblatt}}\end{center}
-\begin{enumerate}
-	\item Lesen sie vorbereitend das Laborübungsblatt einmal komplett durch.
-	\item Notieren sie sich alle aufkommenden Fragen und Unklarheiten!
-	\item Stellen sie ggf. Fragen (Online oder am Anfang der Übung)! 
-\end{enumerate}
-
-\begin{center}
-\Large{\textbf{Aufgabe E -- Optinal: Remote Laborübung}}
-\end{center}
-\vskip0.25in
-Falls sie nicht an der kommenden Laborübung teilnehmen können, lösen sie folgende Aufgaben:
-\begin{enumerate}
-	\item Importieren und klonen sie die benötigten VMs!
-	\begin{enumerate}
-		\item Optimal: Zwei Netzwerke mit je einer \emph{freeBSD}- und einer Linux-VM. (Falls Ressourcen knapp sind, zwei Netzwerke mit einem \emph{freeBSD} und einem Linux). Nutzen sie die VMs ohne grafische Oberfläche! Bei Bedarf können sie die Ressourcen der VMs weiter herunter- oder heraufsetzen.
-		\item Als Router soll das \emph{freeBSD} mit grafischer Oberfläche zum Einsatz kommen.
-		\item Konfigurieren sie die Adapter, sodass ihre VMs in den entsprechenden virtuellen Netzwerken arbeiten (Host-Only Network)
-		\begin{enumerate}
-			\item Tutorial Import unter virtualBox im Moodle
-			\item Tutorial Einstellen der Netzwerkadapter im Moodle
-			\begin{itemize}
-				\item Die VMs die nur Hosts sind haben einen aktiven Adapter für ein Host-Only-Network.
-				\item Der Router hat drei aktive Adapter, ein Bridge und zwei Host-Only-Network.Adapter.
-			\end{itemize}
-		\end{enumerate}
-		\item Konfigurieren sie den \emph{freeBSD}-Router. Diese VM hat drei aktive Adapter: 
-		\begin{itemize}
-			\item Bridge-Mode
-			\item Host-Only Network $A$
-			\item Host-Only Network $B$
-		\end{itemize}
-	\end{enumerate}
-	\item Lesen sie vorbereitend das Laborübungsblatt! Notieren sie sich bei allen Aufgaben, die ihnen nicht klar sind ihre Fragen. 
-	\item Notieren sie sich alle Fragen zu Aufgaben, bei denen sie kein Lösungsansatz haben.
-\end{enumerate}
-
-\bibliographystyle{plain}
-\bibliography{sources}
+\printbibliography
 \end{document}
 
 

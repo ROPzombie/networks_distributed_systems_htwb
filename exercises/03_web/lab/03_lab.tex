@@ -49,11 +49,25 @@ citestyle=alphabetic]{biblatex} %biblatex mit biber laden
 \pagestyle{fancy}
 \lhead{NW+VS -- Übung\\WiSe 2021/22}
 \rhead{FB 4 -- IKG \\ HTW-Berlin}
-\lfoot{Übungsblatt 02 -- Application Layer}
+\lfoot{Übungsblatt 03}
 \cfoot{}
 \fancyfoot[R]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
+
+\lstdefinestyle{Bash}{
+  language=bash,
+  showstringspaces=false,
+  basicstyle=\small\sffamily,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  frame=trlb,
+  columns=fullflexible,
+  backgroundcolor=\color{gray!20},
+  linewidth=0.9\linewidth,
+  %xleftmargin=0.5\linewidth
+}
 
 \lstdefinestyle{Bash}{
   language=bash,
@@ -88,7 +102,7 @@ showstringspaces=false
 
 \begin{document}
 \begin{center}
-\Large{\textbf{Übungsblatt 02 --  Application Layer}}
+\Large{\textbf{Übungsblatt 03 -- Einfache verteilte System mit Sockets und HTTP}}
 \end{center}
 
 \begin{center}\Large{\textbf{Aufgabe A -- Scapy}}\end{center}\vskip0.25in
@@ -98,14 +112,14 @@ Eine gute Anlaufstelle für die Benutzung von \emph{Scapy} finden sie unter: \ur
 	\begin{lstlisting}[style=Bash, language=Bash]
 scapy
 	\end{lstlisting}
-	Die funktioniert analog zur \emph{ipython} Shell.
+	Diese funktioniert analog zur \emph{ipython} Shell der letzten Übung.
 	\begin{enumerate}
 		\item Welche \emph{HTTP}-Protokolle und Funktionalitäten unterstützt \emph{Scapy}?
 		\begin{python}
 >>> explore(scapy.layers.http)
-\end{python}
-		\item Lassen sie in \emph{Scapy} zeigen, wie eine Default-HTTP-Request aussieht.
-		\item Lassen sie in \emph{Scapy} zeigen, wie eine Default-HTTP-Response aussieht.
+		\end{python}
+		\item Lassen sie in \emph{Scapy} anzeigen, wie eine Default-HTTP-Request aussieht.
+		\item Lassen sie in \emph{Scapy} anzeigen, wie eine Default-HTTP-Response aussieht.
 	\end{enumerate}		
 	\item Wie können sie einzelne Layer (also Protokolle) laden?
 	\item Laden sie den \emph{http}-Layer.
@@ -125,34 +139,61 @@ a.close()
 with open("HERE.WEB.URL", "wb") as file:
     file.write(answser.load)
 \end{python}
-	\item Passen sie den Code so an, dass sie eine \emph{HTTP}-Anfrage an den Webserver der HTW stellen können.
+	\item Passen sie den Code an, sodass sie eine \emph{HTTP}-Anfrage an den Webserver der \emph{HTW-Berlin} stellen können (\url{www.htw-berlin.de}).
 \end{enumerate}
 
 \begin{center}\Large{\textbf{Aufgabe B -- Chat-Server}}\end{center}\vskip0.25in
 
 \begin{enumerate}
-	\item unter folgender \emph{URL} finden sie den Code für den Chat-Server:
+	\item Unter folgender \emph{URL} finden sie den Code für den Chat-Server: \url{https://pastebin.com/raw/XndYUZzn}.
 	\begin{enumerate}
-		\item Laden sie den Code mittels \emph{wget} herunter. Lassen sie parallel Wireshark laufen und untersuchen sie den Ablauf.
-		\item Öffnen sie den Server-Code und passen sie die stellen an, sodass der Server auf ihrer VM lauffähig ist.
-		\item Welche IP-Adresse können sie nutzen und wie bringen sie diese in Erfahrung?
-		\item Welchen Port können sie dem Server geben? Für welche Ports benötigen sie spezielle Rechte und für welche nicht?
-		\item Geben sie dem Server entsprechende Rechte, um auf der VM ausführbar zu sein.\\
-		Welches Recht benötigt der Server um ausführbar zu sein.
-		\item Testen sie anschließend, ob ihr Server tatsächlich funktioniert.
+		\item Laden sie den Code mittels \emph{wget} herunter.
+		\textbf{Hinweis:}
+		\begin{lstlisting}[style=Bash, language=Bash]
+wget -o server.py URL
+		\end{lstlisting}
+		\item Nachdem sie in den Hausaufgaben den Code analysiert haben, soll dieser nun auf der VM ausgeführt werden.\\
+		Öffnen sie den Server-Code!
+		\item Mithilfe des Befehls \emph{ifconfig em0} können sie die aktuelle IP-Adresse des Rechners in Erfahrung bringen. Notieren sie sich diese und tragen sie diese im Code des Servers ein.
+		\item Welche Ports kommen prinzipiell in Betracht für den Server? M.a.W. für welche Ports benötigen sie spezielle Rechte und für welche nicht?
+		\item Legen sie im Code den Port für ihren Server fest.
+		\item Im Code ist noch kein Interpreter festgelegt worden. Tragen sie in die erste Zeile des Code folgende Code ein:
+		\begin{python}
+#!/usr/bin/env python
+		\end{python}
+		Diese Zeile legt fest, dass wir Python als Interpreter für die Ausführung nutzen möchten.
+		\item Das Python-Script soll auf unserer VM ausgeführt werden. Hierfür benötigt es entsprechende Ausführungsrechte. Das Kommando \emph{chmod} bietet diese Möglichkeit:\\
+		\begin{lstlisting}[style=Bash, language=Bash]
+chmod u+x server.py
+		\end{lstlisting}
+		Geben sie dem Server Ausführungsrechte!
+		\item Testen sie anschließend, ob ihr Server tatsächlich funktioniert! Bricht das Python-Script an einer Stelle ab, müssen wir eine Fehlerursachenfindung betreiben.
 	\end{enumerate}
-	\item unter folgender \emph{URL} finden sie den Code für den Chat-Client:
+	\item Unter folgender \emph{URL} finden sie den Code für den Chat-Client: \url{https://pastebin.com/raw/Y4aHSba8}.
 	\begin{enumerate}
-		\item Laden sie den Code mittels \emph{cURL} herunter. Lassen sie parallel Wireshark laufen und untersuchen sie den Ablauf.
-		\item Öffnen sie den Client-Code und passen sie die stellen an, sodass der Server auf ihrer VM lauffähig ist.
-		\item Welche IP-Adresse können sie nutzen und wie bringen sie diese in Erfahrung?
-		\item Welchen Port können sie dem Client geben? Für welche Ports benötigen sie spezielle Rechte und für welche nicht?
-		\item Geben sie dem Client entsprechende Rechte, um auf der VM ausführbar zu sein.\\
-		Welches Recht benötigt der Server um ausführbar zu sein.
-		\item Testen sie anschließend, ob ihr Server tatsächlich funktioniert.
+		\item Laden sie den Code mittels \emph{wget} herunter.
+		\textbf{Hinweis:}
+		\begin{lstlisting}[style=Bash, language=Bash]
+curl -o client.py URL
+		\end{lstlisting}
+		\item Nachdem sie in den Hausaufgaben den Code analysiert haben, soll dieser nun auf der VM ausgeführt werden.\\
+		Öffnen sie den Client-Code!
+		\item In diesem Script müssen ebenfalls IP-Adresse und Port für den Socket angegeben werden. Wozu werden diese Angaben benötigt?
+		\item Welche Angaben müssen hier hinterlegt werden?
+		\item Legen sie im Code den Port für ihren Server fest.
+		\item Im Code ist noch kein Interpreter festgelegt worden. Tragen sie in die erste Zeile des Code folgende Code ein:
+		\begin{python}
+#!/usr/bin/env python
+		\end{python}
+		Diese Zeile legt fest, dass wir Python als Interpreter für die Ausführung nutzen möchten.
+		\item Das Python-Script soll auf unserer VM ausgeführt werden. Hierfür benötigt es entsprechende Ausführungsrechte. Das Kommando \emph{chmod} bietet diese Möglichkeit:\\
+		\begin{lstlisting}[style=Bash, language=Bash]
+chmod u+x client.py
+		\end{lstlisting}
+		Geben sie dem Server Ausführungsrechte!
+		\item Testen sie anschließend, ob ihr Client tatsächlich funktioniert! Kann sich der Client mit dem Server verbinden?
+		\item Sobald ihr Chat-System funktioniert können sie auch weitere Clients sich auf den Server Verbinden. Wenn sie dem Server eine öffentliche IP-Adresse gegeben haben, können auch andere VMs diese Server erreichen. Testen sie dies!
 	\end{enumerate}
-	\item Wenn beide Applikationen laufen: Können sie den Server einer anderen VM erreichen? 
-	\item Können sich innerhalb ihrer VM mehrere Clients auf die VM \enquote{connecten}?
 \end{enumerate}
 
 \end{document}

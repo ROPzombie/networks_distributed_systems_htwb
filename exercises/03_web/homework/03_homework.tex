@@ -79,14 +79,14 @@ citestyle=alphabetic]{biblatex} %biblatex mit biber laden
 \Large{\textbf{Übungsblatt 3 -- Einfache verteilte System mit Sockets und HTTP}}
 \end{center}
 
-\begin{center}\Large{\textbf{Aufgabe A -- HTTP}}\end{center}\vskip0.25in
-
+\begin{center}\Large{\textbf{Aufgabe A -- HTTP}}\end{center}
+~\\
 Nachdem wir in der letzten Übung bereits erste Erfahrungen mit \emph{HTTP} gemacht haben, wollen wir etwas tiefer in Richtung verteilte Systeme vorstoßen. Dazu nutzen wir weiterhin \emph{HTTP}.
 \begin{enumerate}
-	\item \emph{HTTP} arbeiten mit Nachrichten in einem Request-Response-Schema. D.h. ein Client sendet Anfragen an den Server, der Server antwortet auf die eingehenden Anfragen.
+	\item \emph{HTTP} arbeitet mit Nachrichten im Request-Response-Schema. D.h. ein Client sendet Anfragen an den Server, der Server antwortet auf die eingehenden Anfragen.
 	\begin{enumerate}
-		\item Im Folgenden ist eine \emph{HTTP}-Request abgebildet.
-		\begin{figure}[h]
+		\item Im Folgenden ist ein \emph{HTTP}-Request abgebildet:
+		\begin{figure}[H]
 	\includegraphics[scale=0.4]{http_req}
 	\end{figure}
 	Erläutern sie den Aufbau solch einer \emph{HTTP}-Nachricht.
@@ -94,10 +94,10 @@ Nachdem wir in der letzten Übung bereits erste Erfahrungen mit \emph{HTTP} gema
 	\begin{figure}[H]
 	\includegraphics[scale=0.4]{http_resp}
 	\end{figure}
-	Erläutern sie den Aufbau solch einer \emph{HTTP}-Nachricht.
+	Erläutern sie den Aufbau der prototypischen \emph{HTTP}-Nachricht.
 	\end{enumerate}
-	\item \emph{HTTP} ist selbst zustandslos. Jedoch kodiert der Server bei den Antwort auf eine Anfrage die Art der Nachricht.\\
-	\emph{HTTP} hat hierbei generell fünf Typen von Codes festgelegt, die erste Ziffer gibt den Typ des Codes an. Recherchieren sie kurz, was folgenden Status-Codes bedeuten:
+	\item \emph{HTTP} ist gehört zu zustandslosen Protokollen. Jedoch kodiert der Server bei jeder Antwort die Art des Response.\\
+	\emph{HTTP} hält generell fünf Typen von Status-Codes (Response-Codes) vor, die erste Ziffer gibt den Typ des Codes an. Recherchieren sie kurz, was folgenden Status-Codes bedeuten:
 	\begin{enumerate}
 		\item \textit{1yy} 
 		\item \textit{2yy}
@@ -107,12 +107,12 @@ Nachdem wir in der letzten Übung bereits erste Erfahrungen mit \emph{HTTP} gema
 	\end{enumerate}
 \end{enumerate}
 
-\begin{center}\Large{\textbf{Aufgabe B -- Scapy}}\end{center}\vskip0.25in
-
-In der kommenden Übung arbeiten wir unter anderem mit \emph{Scapy}. Mithilfe von \emph{Scapy} können einfach Pakte gebaut, analysiert und verändert werden. So auch \emph{HTTP}-Pakete.
+\begin{center}\Large{\textbf{Aufgabe B -- Scapy}}\end{center}
+~\\
+In der kommenden Übung arbeiten wir unter anderem mit \emph{Scapy}. Mithilfe von \emph{Scapy} können einfach Pakte gebaut, analysiert und verändert werden. So auch \emph{HTTP}-Pakete. Der Vorteil ist, dass sie nicht die darunter liegenden Schichten abarbeiten müssen, dass erledigt \emph{Scapy} für sie transparent.
 \begin{enumerate}
-	\item Innherhalb \emph{Scapy} können sie sich den Aufbau von verschiedene Paketen anzeigen lassen.
-	\item Lesen sie den nachfolgenden Code und kommentieren sie sich, wie ein HTTP-Request und Response umgesetzt werden sollen.
+	\item Innerhalb \emph{Scapys} können sie sich den Aufbau verschiedener Paketen anzeigen lassen. Geben hierfür einfach \texttt{load\_layers("NAME")} ein.
+	\item Lesen sie den nachfolgenden Code und kommentieren sie sich, wie ein \emph{HTTP}-Request und -Response umgesetzt werden sollten.
 	\begin{python}
 >>> load_layer("http")
 >>> HTTPRequest().show()
@@ -143,15 +143,14 @@ In der kommenden Übung arbeiten wir unter anderem mit \emph{Scapy}. Mithilfe vo
 \end{python}
 \end{enumerate}
 
-
-
-\begin{center}\Large{\textbf{Aufgabe C -- Python}}\end{center}\vskip0.25in
-Im folgenden ist ein einfacher Chat-Server programmiert.
+\begin{center}\Large{\textbf{Aufgabe C -- Python}}\end{center}
+~\\
+Im Folgenden ist ein einfacher Chat-Server in der Programmiersprache \emph{Python} implementiert worden. Ihre Aufgabe ist es den Code an den markanten Stellen zu verstehen.
 \begin{enumerate}
-	\item Lesen sie den Code zunächst einmal von oben nach unten.
-	\item Ein \emph{\#} markiert den Beginn eines Kommentars. Fügen sie an den entsprechen Stellen kommentare ein, die erklären, was der Code macht (an den Stellen, wo \enquote{\# COMPLETE ME} steht).
-	
-	\begin{python}
+	\item Lesen sie den Code zunächst einmal von oben nach unten. Markieren sie sich ggf. erste Funktionalitäten.
+	\item Ein \emph{\#} markiert den Beginn eines Kommentars. Fügen sie an den entsprechen Stellen Kommentare ein, die erklären, was der Code macht (D.h dort wo \enquote{\# COMPLETE ME} steht).\\
+	Kommentieren sie den Code des Chat-Servers!
+\begin{python}
 import socket # import socket lib -> IP+TCP/UDP
 import select # import I/O wait/await etc.
 import sys # import OS functionality
@@ -250,7 +249,7 @@ server.close()
 \end{python}
 	\item Analog zu letzten Aufgabe: Lesen und kommentieren sie den Client-Code.
 	\begin{python}
-	# Python program to implement client side of chat room.
+# Python program to implement client side of chat room.
 import socket
 import select
 import sys
@@ -292,7 +291,6 @@ while True:
 server.close() # COMMENT ME
 	\end{python}
 \end{enumerate}
-
 
 \printbibliography
 
