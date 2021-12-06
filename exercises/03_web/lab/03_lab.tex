@@ -116,6 +116,7 @@ scapy
 	\begin{enumerate}
 		\item Welche \emph{HTTP}-Protokolle und Funktionalitäten unterstützt \emph{Scapy}?
 		\begin{python}
+>>> load_layer("http")
 >>> explore(scapy.layers.http)
 		\end{python}
 		\item Lassen sie in \emph{Scapy} anzeigen, wie eine Default-HTTP-Request aussieht.
@@ -145,12 +146,12 @@ with open("HERE.WEB.URL", "wb") as file:
 \begin{center}\Large{\textbf{Aufgabe B -- Chat-Server}}\end{center}\vskip0.25in
 
 \begin{enumerate}
-	\item Unter folgender \emph{URL} finden sie den Code für den Chat-Server: \url{https://pastebin.com/raw/XndYUZzn}.
+	\item Unter folgender \emph{URL} finden sie den Code für den Chat-Server: \url{https://pastebin.com/raw/5FeQvUnZ}.
 	\begin{enumerate}
 		\item Laden sie den Code mittels \emph{wget} herunter.
 		\textbf{Hinweis:}
 		\begin{lstlisting}[style=Bash, language=Bash]
-wget -o server.py URL
+wget -O server.py URL
 		\end{lstlisting}
 		\item Nachdem sie in den Hausaufgaben den Code analysiert haben, soll dieser nun auf der VM ausgeführt werden.\\
 		Öffnen sie den Server-Code!
@@ -159,9 +160,18 @@ wget -o server.py URL
 		\item Legen sie im Code den Port für ihren Server fest.
 		\item Im Code ist noch kein Interpreter festgelegt worden. Tragen sie in die erste Zeile des Code folgende Code ein:
 		\begin{python}
-#!/usr/bin/env python
+#!/usr/bin/env python3
 		\end{python}
 		Diese Zeile legt fest, dass wir Python als Interpreter für die Ausführung nutzen möchten.
+		\item Ändern sie die Zeile
+		\begin{python}
+from threading import *
+		\end{python}
+		in
+		\begin{python}
+import threading
+		\end{python}
+		Andernfalls wird der Namespace für das Multithreading nicht korrekt aufgelöst.
 		\item Das Python-Script soll auf unserer VM ausgeführt werden. Hierfür benötigt es entsprechende Ausführungsrechte. Das Kommando \emph{chmod} bietet diese Möglichkeit:\\
 		\begin{lstlisting}[style=Bash, language=Bash]
 chmod u+x server.py
@@ -169,12 +179,12 @@ chmod u+x server.py
 		Geben sie dem Server Ausführungsrechte!
 		\item Testen sie anschließend, ob ihr Server tatsächlich funktioniert! Bricht das Python-Script an einer Stelle ab, müssen wir eine Fehlerursachenfindung betreiben.
 	\end{enumerate}
-	\item Unter folgender \emph{URL} finden sie den Code für den Chat-Client: \url{https://pastebin.com/raw/Y4aHSba8}.
+	\item Unter folgender \emph{URL} finden sie den Code für den Chat-Client: \url{https://pastebin.com/raw/UBU0Yzj2}.
 	\begin{enumerate}
 		\item Laden sie den Code mittels \emph{wget} herunter.
 		\textbf{Hinweis:}
 		\begin{lstlisting}[style=Bash, language=Bash]
-curl -o client.py URL
+curl -O client.py URL
 		\end{lstlisting}
 		\item Nachdem sie in den Hausaufgaben den Code analysiert haben, soll dieser nun auf der VM ausgeführt werden.\\
 		Öffnen sie den Client-Code!
