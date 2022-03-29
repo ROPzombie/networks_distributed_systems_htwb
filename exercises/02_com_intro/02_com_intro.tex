@@ -46,9 +46,10 @@ citestyle=alphabetic]{biblatex} %biblatex mit biber laden
 
 
 \pagestyle{fancy}
-\lhead{NW+VS -- Übung\\WiSe 2021/22}
-\rhead{FB 4 -- IKG \\ HTW-Berlin}
-\lfoot{Übungsblatt 02 -- Application Layer}
+\lhead{Netzwerke und verteilte Systeme\\
+ Übung SoSe 2022}
+\rhead{Informatik in Kultur und Gesundheit\\HTW-Berlin FB 4}
+\lfoot{Grundlegende Kommunikation}
 \cfoot{}
 \fancyfoot[R]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -75,9 +76,8 @@ citestyle=alphabetic]{biblatex} %biblatex mit biber laden
 
 \begin{document}
 \begin{center}
-\Large{\textbf{Übungsblatt 2 -- Application Layer}}
+\Large{\textbf{Übungsblatt 2 -- Grundlegende Kommunikation}}
 \end{center}
-Eine gute Einführung finden Sie im Kurose et al. \cite[S. 83ff]{Kurose2012} oder \cite[S. 1317ff]{kozierok2005tcp}.
 
 \begin{center}\Large{\textbf{Aufgabe A -- HTTP(S)}}\end{center}\vskip0.25in
 Kein anderes Protokoll ist für das World-Wide-Web so wichtig wie HTTP. In diesem Teil sollen sie recherchieren, wie die bunten Seiten in Ihren Browser kommen.
@@ -101,31 +101,9 @@ Kein anderes Protokoll ist für das World-Wide-Web so wichtig wie HTTP. In diese
 	\item Auf welcher Schicht arbeitet TLS? Wenn Sie das Akronym auflösen, sollte die Lösung Ihnen entgegen fallen.
 \end{enumerate}
 
-\begin{center}\Large{\textbf{Aufgabe B -- E-Mail mit POP3, IMAPv4 \& SMTP}}\end{center}\vskip0.25in
 
-Das Simple Mail Transfer Protokoll (SMTP) wird, wie der Name schon sagt, zum Austausch von E-Mails in Computernetzwerken genutzt. Primär wird es zum Weiterleiten von Mails zwischen Servern genutzt. Auf ihren Endgeräten kommt zumeist \emph{IMAP} oder \emph{POP3} zum Einsatz. 
-\begin{enumerate}
-	\item Wie in den vorigen Aufgaben: \url{https://youtu.be/TntfISdGwO8} gibt eine Einführung zu E-Mail.
-	\item Recherchieren Sie zunächst was sich hinter den Akronymen POP3, IMAPv4, sowie SMTP verbirgt.
-	\item Erläutern sie im groben welche Aufgaben die oben genannten Protokolle übernehmen.
-	\item Auf welcher Ebene des OSI-Modells arbeiten die Protokolle?
-	\item Machen sie sich im Groben klar, wie diese Protokolle arbeiten.	
-	\item Worin unterscheiden sich POP3 und IMAP?
-	\item Auf welchen Ports arbeiten die drei Protokolle?
-	\item Auf welchen Ports arbeiten die drei Protokolle mit Verschlüsselung?
-\end{enumerate}
 
-\begin{center}\Large{\textbf{Aufgabe C -- Python Grundlagen}}\end{center}\vskip0.25in
 
-\begin{enumerate}
-	\item Falls sie nicht an den Laborübungen teilnehmen können, sie benötigen einen Python Interpreter. Auf der VM ist dieser bereits vorhanden und kann mit dem Kommando \emph{python} aufgerufen werden.
-	\item Für den Start benötigen wir einige Grundlagen. Recherchieren sie kurz folgende Begriffe:
-	\begin{enumerate}
-		\item Was ist unter einer Variablen zu verstehen?
-		\item Was kann unter einer Schleife (\emph{loop}) verstanden werden?
-		\item Was sind Kontrollstrukturen (\emph{control structures})?
-	\end{enumerate}
-\end{enumerate}
 
 \printbibliography
 
