@@ -105,20 +105,21 @@ Ziel dieser Aufgabe ist die grundlegende Navigation in der Shell zu verstehen.
 		\centering
 		\includegraphics[scale=0.3]{freebsd_login}
 		\end{figure}
-		\item Starten sie die Kommandozeile (Shell)! Entweder via Tastenkombination \keys{\ctrl + \Alt + t} (STRG + ALT + T) oder über das Menü bzw. das Icon im Panel.\\
-		Lassen sie sich anschließend ihr aktuelles Verzeichnis auf der Kommandozeile ausgeben! Dies ist standardmäßig ihr Heimatverzeichnis \footnote{Auch \enquote{home directory}: $\sim$ oder ausgeschrieben \path{/home/student/} auf der VM bzw. \path{/home/s0xxxxxx} auf den Laborrechnern}.
+		\item Starten sie die Kommandozeile (Shell)! Entweder via Tastenkombination \keys{\ctrl + \Alt + t} (STRG + ALT + T) oder über das Menü bzw. das Icon im Panel.
 		\item Unix besitzt eine integrierte Hilfestellung seiner Programme -- die Manpages (für Manual Pages).
-		\item Das Programm \emph{ls} gibt das den aktuellen Inhalt eines Verzeichnis aus. Setzen sie das Kommando in der Shellab. Mithilfe der Parameter \emph{--help}, (manchmal auch \emph{-help} oder \emph{-h}) erhalten sie eine kurze Übersicht über den Befehl.
+		\item Das Programm \emph{ls} gibt das den aktuellen Inhalt eines Verzeichnis aus. Setzen sie das Kommando in der Shellab.\\
+		Dies ist standardmäßig ihr Heimatverzeichnis \footnote{Auch \enquote{home directory}: $\sim$ oder ausgeschrieben \path{/home/student/} auf der VM bzw. \path{/home/s0xxxxxx} auf den Laborrechnern}.
+		\item Manche Befehle haben einen \enquote{Hilfe-Parameter} \emph{$--$ help}, (manchmal auch \emph{-help} oder \emph{-h}) über diesen erhalten sie eine kurze Übersicht des Befehls.
 				\begin{lstlisting}[style=Bash, language=Bash]
-ls --help
+pwd --help
 		\end{lstlisting}
-    \item Rufen sie die \emph{manpage} für einen beliebigen Befehl ein:
+    \item Rufen sie die \emph{manpage} für einen beliebigen Befehl auf.\\
+    Für die Man-Page des Kommandos \emph{ls} sieht das folgendermaßen aus:
 \begin{lstlisting}[style=Bash, language=Bash]
 man ls
 		\end{lstlisting}
 		 Nutzen sie die Pfeiltasten, die Bild hoch/runter (\keys{pageup \arrowkeyup}/ \keys{pageup \arrowkeydown}) oder Leertaste (\keys{\Space}) zum lesen. Schließen erfolgt mit \keys{q}. Mit \emph{/} könne sie innerhalb der Manpage suchen.
-		\item Lassen sie sich den Inhalt des Verzeichnisses ausgeben.
-		\item Navigieren sie via \emph{cd} in den Ordner \path{/var}
+		\item Der Befehl \emph{cd} (change directory) erlaubt das Wechseln des Verzeichnisses. Navigieren sie via \emph{cd} in den Ordner \path{/var}
 		\item Springen sie vom vorherigen Ordner in den übergeordneten Ordner (\emph{/} -- dies sollte das \emph{root}-Verzeichnis sein).
 		\item Navigieren sie in ihr Heimatverzeichnis (Dies sollte durch genau ein Kommando erfolgen!)
 		\item Recherchieren sie kurz den Unterschied zwischen relativen und absoluten Pfaden in Unix-Dateisystemen. Sie können folgende Quelle hierfür nutzen: \url{https://de.wikipedia.org/wiki/Pfadname}.
@@ -129,7 +130,7 @@ man ls
 bck-i-search: _
 		\end{lstlisting}
 		Mithilfe dieser Suche können sie nach bereits genutzten Befehlen suchen. Wenn sie beispielsweise \emph{cd} eingeben sehen Sie den zuletzt genutzten Befehl der den Token \emph{cd} enthält. Durch wiederholtes Drücken der Tastenkombination \keys{\ctrl +r} durchsuchen Sie die History Richtung älterer Befehle die das angegebene Schlüsselwort enthalten.\\
-		\textbf{Kommandos:} \textcolor{blue}{\emph{cd}, \emph{cd ..}, \emph{cd \textasciitilde} \emph{pwd}, \emph{history}}
+		\textbf{Kommandos:} \textcolor{blue}{\emph{cd}, \emph{cd ..}, \emph{cd \textasciitilde}, \emph{pwd}, \emph{history}}
 	\end{enumerate}
 	\item Grundlegende Kommandos:\\
   Um den grundlegenden Umgang mit der Shell kennenzulernen, fertigen sie sich ein eigenes kleines Shell-Tutorial an.\\
@@ -159,9 +160,9 @@ echo FOO
 		\item Öffnen sie ihr Cheat-Sheet mithilfe eines Editors. Notieren sie sich alle Befehle, sowie deren Bedeutung, sodass sie eine erste Anlaufstelle für die nächsten Übungen haben. Dieses Dokument sollten sie fortan als Notizzettel für die Übungen nutzen!
 		\item Navigieren sie in Ihr Heimatverzeichnis. Legen sie folgenden Ordner, sowie Unterordner mithilfe des \emph{mkdir}-Kommandos an: \path{exercise_notes/tutorials}. (Satzpunkt gehört wieder nicht zum Dateinamen!)
 		\item Kopieren sie die Datei bzw. den Ordner \emph{shell\_tutorial} in das eben angelegte Verzeichnis.\\
+		\textbf{Hinweise:} Schauen sie in die Manpage von \emph{cp} um herauszufinden, wie Ordner kopiert werden können.\\
 		\textbf{Kommandos:} \textcolor{blue}{\emph{cp} }
-        \item Kopieren sie die Datei(en) inklusive des Ordners \path{exercises/tutorials/shell_tutorial.md} in das Verzeichnis \path{/tmp}.\\
-        \textbf{Hinweise:} Schauen sie in die Manpage von \emph{cp} um herauszufinden, wie Ordner kopiert werden können.\\
+        \item Kopieren sie die Datei(en) inklusive des Ordners \path{exercise_notes/tutorials/shell_tutorial.md} in das Verzeichnis \path{/tmp}.
         \textbf{Kommandos:} \textcolor{blue}{\emph{man cp}}
   	\end{enumerate}
   	\footnote{.md steht für Markdown, welches ein Format für Textdateien ist, ähnlich .pdf oder .doc-Dateien.}
@@ -202,7 +203,7 @@ echo FOO
 vimtutor
 \end{lstlisting}
 	\item Durchlaufen sie die Lessons 1 und 2 im \emph{vimtutor}.
-	\item Nutzen sie den \emph{vi(m)}-Editor, um den Hostnamen der virtuellen Maschine zu ändern. Der Hostname befindet sich unter \path{/etc/hostname} und unter \path{/etc/hosts}.\\
+	\item Nutzen sie den \emph{vi(m)}-Editor, um den Hostnamen der virtuellen Maschine zu ändern. Der Hostname befindet sich unter \path{/etc/rc.conf} und unter \path{/etc/hosts}.\\
 	Sie können einen beliebigen Namen wählen!
 \end{enumerate}
 

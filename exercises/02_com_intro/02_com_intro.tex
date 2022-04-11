@@ -76,31 +76,73 @@ citestyle=alphabetic]{biblatex} %biblatex mit biber laden
 
 \begin{document}
 \begin{center}
-\Large{\textbf{Übungsblatt 2 -- Grundlegende Kommunikation}}
+\Large{\textbf{Übungsblatt 2 -- Socket-Kommunikation}}
 \end{center}
 
-\begin{center}\Large{\textbf{Aufgabe A -- HTTP(S)}}\end{center}\vskip0.25in
-Kein anderes Protokoll ist für das World-Wide-Web so wichtig wie HTTP. In diesem Teil sollen sie recherchieren, wie die bunten Seiten in Ihren Browser kommen.
+\begin{center}\Large{\textbf{Aufgabe A -- Grundlagen IP}}\end{center}\vskip0.25in
 \begin{enumerate}
-	\item Recherchieren sie zunächst was HTTP ist. Eine gute Anlaufstelle wäre \cite[S. 98ff]{Kurose2012}.
-	\item Erläutern sie grob, was eine Client-Server-Architektur ist. Wieso entspricht HTTP diesem Modell?
-	\item Auf welcher Schicht des OSI-Modells ordnen Sie HTTP ein?
-	\item Recherchieren sie was unter einem Port verstanden wird! Ein grobes Verständnis genügt.
-	\item Auf welchen Port laufen meistens Webserver? Auf welchem Port läuft die verschlüsselte Variante HTTPs?
-	\item HTTP ist ein zustandsloses Protokoll. Erläutern Sie diese Aussage!
-	\item HTTP arbeitet mithilfe von Methoden. Erläutern sie kurz folgende Methoden:
-	\begin{itemize}
-		\item \emph{GET}
-		\item \emph{HEAD}
-		\item \emph{POST}
-		\item \emph{PUT}
-		\item \emph{DELETE}
-		\item \emph{TRACE}
-	\end{itemize}
-	\item Machen sie sich kurz klar, welche Aufgabe TLS übernimmt. (Hinweis: An dieser Stelle genügt es, wenn sie wissen was TLS macht.)
-	\item Auf welcher Schicht arbeitet TLS? Wenn Sie das Akronym auflösen, sollte die Lösung Ihnen entgegen fallen.
+	\item Im Labor besteht das Netzwerk aus 20 Rechnern. Diese Rechner sind über einen Switch verbunden. Das heißt alles Rechner können via IP-Protokoll miteinander kommunizieren.\\
+	Rekapitulieren sie was eine IP-Adresse ist. Welche Aufgabe haben diese Adressentypen in einem Netzwerk?
+	\item Rekapitulieren sie was eine Subnetzmaske ist und wofür diese gebraucht wird.
+	\item Wie spielen IP-Adresse und Subnetzmaske zusammen?
+	\item Was ist eine Broadcast-Adresse? Wozu wird diese benötigt und wie wird diese gebildet?
+	\item Bestimmte IP-Adressbereiche werden nicht ins Internet weitergeleitet, sie werden als private IP-Adressen bezeichnet. Diese Adressen gibt es sowohl unter \emph{IPv4} als auch unter \emph{IPv6} (\emph{IPv6}: nicht global geroutet). Recherchieren sie, welche IP-Adressbereiche nicht ins Internet geroutet werden.
+	\item Gegeben sei der Netzbereich $10.23.42.0$. Wie sieht die Netzmaske und Broadcast-Adresse $7, 23, 42$ oder $72$ Rechner aus? 
+	\item Wie verschiebt sich die Netzmaske und Broadcast-Adresse der vorigen Aufgabe, wenn der Netzbereich bei $10.23.42.16$ startet?
+	\item Angenommen sie bekommen den Netzblock $173.168.0.0$ und sollen zwei gleich große Netzwerke Netzwerke mit 80 Rechner belegen. Zusätzlich sollen fünf Netzwerke mit je 32 Rechner untergebracht werden.\\
+	Wie würden sie das gegebene Netz partitionieren?
 \end{enumerate}
 
+\begin{center} \Large{\textbf{Aufgabe B - Anzeige der bestehenden Netzwerkkonfiguration}} \end{center}
+
+\begin{enumerate}
+	\item Nutzen sie für die nachfolgende Aufgabe das Kommando \emph{ifconfig} Lassen sie sich die aktuelle IP-Adresskonfiguration anzeigen.
+	\item Mit dem Aufruf von \emph{ifconfig}: Wo finden sie in der Ausgabe die folgenden Informationen:
+	\begin{enumerate}
+		\item \emph{MAC}-Adresse der Netzwerkkarte
+		\item Aktuelle IP-Adresse des Systems
+		\item Subnetzmaske (welches Format wir hier genutzt? Können sie dieses übersetzen?)
+		\item Besteht eine aktive Verbindung mit dem Netzwerk -- ist das Gerät aktiv?
+	\end{enumerate}
+	\item Überprüfen sie, ob ein Netzwerkverbindung besteht. Zum Prüfen können sie folgende Aktionen durchführen:
+	\begin{enumerate}
+		\item Auf der Kommandozeile einen Rechner mit seinem Namen anpingen (bspw.: \url{mi.fu-berlin.de}).
+		\item Ping auf eine IP-Adresse (bspw.: $160.45.117.199$).
+		\item Ping auf die eigene IP-Adresse -- wurde der lokale Netzwerkstack richtig gestartet?
+	\end{enumerate}
+	\item Versuchen sie anschließend einen Rechner innerhalb des Netzes zu erreichen. Bspw. den Nachbarrechner.
+	\item Was passiert bei einem \emph{ping} auf $192.168.0.1$?
+	\item Was passiert wenn sie \emph{ping} auf eine nicht vorhanden IP-Adresse im  Labor absetzen?
+	\item Was passiert wenn sie eine Broadcast-Adresse anpingen? Erläutern sie zunächst, was theoretisch passieren müsste. Was passiert, wenn sie das Kommando \emph{ping} auf die Broadcast-Adresse ihres Netzes absetzen?
+	\item 
+	\item Welchen Zweck hat das Interface \emph{lo}? Welche IP-Adresse wurde hier hinterlegt? Welche Netz- und Broadcast-Adresse hat dieses Interface?
+\end{enumerate}
+
+\begin{center} \Large{\textbf{Aufgabe C - Socket-Kommunikation}} \end{center}
+\begin{enumerate}
+	\item Rekapitulieren sie, was unter einer Server-Client-Kommunikation verstanden wird. Wie sieht ein typischer Ablauf der Kommunikation aus?
+	\item Welche Rolle spielt die IP-Adresse bei dieser Art der Kommunikation?
+	\item Neben der IP-Adresse benötigen sie noch eine weitere Information für den Aufbau einer Socket-Verbindung -- den Port. Erläutern sie, was ein Port ist. In welchen Layer des OSI-Modells ordnen sie die Ports ein?
+	\item Das Kommando \emph{netcat} erlaubt es beliebige Socket-Kommunikationen aufzubauen. \emph{netcat} benötigt für die Kommunikation eine IP-Adresse und einen Port. Wie legen sie beide Parameter mit \emph{netcat} fest? Rufen sie hierfür die \emph{Man-Page} auf und recherchieren sie.
+	\begin{lstlisting}[style=Bash, language=Bash]
+man nc
+	\end{lstlisting}
+	\item Im folgenden soll ein Chat-Server mit \emph{netcat} aufgebaut werden.
+	\begin{enumerate}
+		\item Im ersten Schritt soll eine lokale Kommunikation ermöglicht werden. Welcher Interface sollte hierfür genutzt werden?
+		\begin{enumerate}
+			\item Wie sieht das Kommando für den Aufbau des \emph{netcat}-Servers aus? Führen sie das Kommando anschließend aus.
+			\item Mit welchem Befehl können sie sich mit dem lokalen \emph{netcat}-Server verbinden? Verbinden sie sich mit ihrem lokalen Server.
+		\end{enumerate}
+		\item Analog zu vorigen Aufgabe soll der \emph{netcat}-Server nun nicht mehr nur lokal aufrufbar sein, sondern im \emph{LAN} verfügbar sein.
+		\begin{enumerate}
+			\item Was müssen sie ändern am Kommando des Servers ändern, sodass dieser im LAN ansprechbar wird?
+			\item Führen sie die Änderungen durch und starten sie den \emph{netcat}-Server!
+			\item Finden sie einen Chat-Server im Labor, den sie via \emph{netcat} erreichen können.
+		\end{enumerate}
+		\item Nachdem sie sich erfolgreich mit einem Server verbunden haben: Was passiert, wenn mehrere Clients versuchen sich mit dem Server zu verbinden?
+	\end{enumerate}
+\end{enumerate}
 
 
 
