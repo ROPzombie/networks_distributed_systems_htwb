@@ -1,0 +1,202 @@
+%start preamble
+\documentclass[paper=a4,fontsize=11pt]{scrartcl}%kind of doc, font size, paper size
+
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+%\setsansfont{Liberation Sans}
+\usepackage{polyglossia}	
+\setdefaultlanguage[spelling=new, babelshorthands=true]{german}
+			
+\usepackage{amsmath}%get math done
+\usepackage{amsthm}%get theorems and proofs done
+\usepackage{graphicx}%get pictures & graphics done
+\graphicspath{{pictures/}}%folder to stash all kind of pictures etc
+\usepackage{amssymb}%symbolics for math
+\usepackage{amsfonts}%extra fonts
+\usepackage{caption}%captions under everything
+\usepackage{listings}
+\numberwithin{equation}{section} 
+\usepackage{float}%for garphics and how to let them floating around in the doc
+\usepackage{xcolor}%nicer colors, here used for links
+\usepackage{dsfont}
+\usepackage{stmaryrd}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{csquotes}
+\usepackage{enumitem}
+
+\usepackage[backend=biber,style=alphabetic,
+citestyle=alphabetic]{biblatex} %biblatex mit biber laden
+\addbibresource{sources.bib}
+
+%settings colors for links
+\hypersetup{
+    colorlinks,
+    linkcolor={blue!50!black},
+    citecolor={blue},
+    urlcolor={blue!80!black}
+}
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+
+\pagestyle{fancy}
+\lhead{Netzwerke und verteilte Systeme\\
+ Übung SoSe 2022}
+\rhead{Informatik in Kultur und Gesundheit\\HTW-Berlin FB 4}
+\lfoot{IP Routing}
+\cfoot{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\lstdefinestyle{Bash}{
+  language=bash,
+  showstringspaces=false,
+  basicstyle=\small\sffamily,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  frame=trlb,
+  columns=fullflexible,
+  backgroundcolor=\color{gray!20},
+  linewidth=0.9\linewidth,
+  %xleftmargin=0.5\linewidth
+}
+
+
+%%here begins the actual document%%
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+
+\begin{document}
+\begin{center}
+\Large{\textbf{Übungsblatt 3 -- IP Routing}}
+\end{center}
+
+\begin{center}\Large{\textbf{Aufgabe A -- Grundlagen IP}}\end{center}\vskip0.25in
+\begin{enumerate}
+	\item In der letzte Übung haben wir uns mit IP-Adressen beschätigt. Wenn wir Rechner über ein LAN hinweg verbinden wollen, benötigen wir noch zwei weitere Techniken: Routing und Forwarding.
+		\begin{enumerate}
+			\item Erläutern sie kurz was unter Routing verstanden wird.
+			\item Analog: Was wird im Kontext des Routings unter Forwarding verstanden?
+		\end{enumerate}
+		\item Was sind die Aufgaben eines Routers?
+		\begin{itemize}
+			\item Wie erfolgt, im Groben, die Umsetzung des Routings?
+			\item Woher \enquote{weiß} das IP-Paket welche Route genommen werden muss? Anders gesagt, wie 
+		\end{itemize}				
+		Wie erfolgt, im Groben, die Umsetzung des Routings?
+	\item Machen sie sich klar, wie Router und IP-Protokoll zusammenhängen.
+	\begin{itemize}
+		\item Welche Aufgabe hat das IP-Protokoll, welche Aufgabe hat der Router.
+		\item Ist das IP-Protokoll routingfähig? (Begründung!) 
+	\end{itemize}
+	\item In welche Schicht des OSI-Modells würden sie einen Router einordnen? (Begründung!)
+\end{enumerate}
+
+\begin{center}\Large{\textbf{Aufgabe B -- Werkzeuge}}\end{center}\vskip0.25in
+
+\begin{enumerate}
+	\item Recherchieren sie kurz, was die Werkzeuge \emph{sudo} bzw. \emph{doas} leisten.
+	\item Wie sieht die Syntax für die IP-Adressvergabe mittels \emph{ifconfig} aus?
+	\begin{enumerate}
+		\item Wie werden IP-Adressen und Subnetzmasken gesetzt?
+	\end{enumerate}
+	\item In Betriebssystemen gibt es verschiedene Hintergrunddienste (Daemons), die die Verwaltung des Systems in Teilen organisieren. 
+	\begin{enumerate}
+		\item Wie können Daemons unter FreeBSD ein-, bzw. ausgeschaltet werden? In welcher Datei werden grundsätzlich Dienste konfiguriert?
+	\end{enumerate}
+	\item Mit \emph{ifconfig} werden die IP-Adressen nur für den laufenden Betrieb geändert, d.h. nach einem Neustart gehen alle Einstellungen verloren. In der \path{/etc/rc.conf} wird diese Information persistiert.\\
+	Wie sieht die Konfiguration hier aus? \footnote{\url{https://www.freebsd.org/doc/de_DE.ISO8859-1/articles/linux-users/network.html}}.
+	\item Wenn überprüft werden soll, ob ein Netzwerk funktioniert, kann das Werkzeug \emph{ping} genutzt werden. Unter der Haube von \emph{ping} arbeitet \emph{ICMP}.
+	\begin{enumerate}
+		\item Auf welchen Layer des OSI-Modells ordnen sie \emph{ICMP} ein? Begründen sie ihre Wahl.
+	\item Recherchieren sie welchen Hinweis ihnen die Folgenden \emph{ICMP}-Messages geben sollen.
+	\begin{itemize}
+		\item Connect: network is unreachable
+		\item Destination Host Unreachable
+		\item Destination Network Unreachable
+		\item keine Antwort auf ein Ping
+	\end{itemize}
+	\end{enumerate}
+	\item Das Kommando \emph{netstat} erlaubt das auslesen beliebiger Netzwerkinformationen. Wir benötigen dies vor allem für das Auslesen des Routing-Tables.
+	\begin{enumerate}
+		\item Was wird unter einem Routing-Table verstanden?
+		\item Wie können sie sich den Routing-Table ausgeben lassen?
+	\end{enumerate}
+	\item Das \emph{route}-Kommando erlaubt uns die Manipulation des Routing-Tables.
+	\begin{enumerate}
+		\item Wie kann eine Route mittels \emph{route} angelegt werden? \footnote{\url{https://www.freebsd.org/doc/de_DE.ISO8859-1/books/handbook/network-routing.html}}
+	\end{enumerate}
+	\item Beim aufsetzen des Netzwerkes kann unterschieden werden zwischen \emph{Gateways} und \emph{Default Gateways}. Recherchieren sie diese Unterscheidung.
+\end{enumerate}
+
+\begin{center}\Large{\textbf{Aufgabe C - Setup}}\end{center}
+Bevor es richtig losgeht, müssen sie folgende Vorbereitungen treffen.
+\begin{enumerate}
+	\item Sie benötigen drei VMs/Rechner. Im Labor sind dies drei bis vier Rechner.
+	\item Remote: Hierfür sollten sie zwei minimale \emph{freeBSD}, sowie das \emph{FreeBSD} mit grafischer Oberfläche (GUI) bereithalten. \\
+Importieren sie die VMs. Hierfür habe ich ein kurzes Video im Moodle-Kurs hinterlegt (s. Moodle-Kurs).
+	\item Ändern sie die Hostnamen der VMs! Jede VM sollte einen individuellen Namen bekommen. Später empfiehlt es sich die Namen den Funktionalitäten zuzuordnen oder ein festes Namensschema zu nutzen. Den Hostnamen können sie in der Datei \path{/etc/rc.conf} ändern.
+\end{enumerate}
+
+\begin{center}\Large{\textbf{Aufgabe D -- Umsetzung des statischen Routings}}\end{center}\vskip0.25in
+\textbf{Hinweis: Setzen sie alle Konfigurationen zunächst nicht persistent um. Schreiben sie nichts in die Konfigurationsdateien!}
+\begin{enumerate}
+	\item Zunächst muss festgestellt werden welche Adapter zu konfigurieren ist.
+	\item Überprüfen sie, ob auf ihren Rechnern das DHCP eingeschaltet ist. Wie können sie feststellen, ob das \emph{DHCP} auf dem Adapter aktiv ist?
+	\item Schalten sie auf allen zu konfigurierenden Rechnern den \emph{DHCP}-Dienst für den Adapter aus.
+	\item Pro Bankreihe: Eine VM soll als Router fungieren. Setzen sie fest, welcher Rechner als Router zu Einsatz kommt.
+	\item Vorbereitend für den Adapter jeder VM im LAN:
+	\begin{enumerate}
+		\item Legen sie eine \emph{IPv4}-Adresse fest. Folgendes Schema soll im Labor angewandt werden: $10.0.X.Y$, wobei $X$ ihrer Bankreihe startend bei 1 annimmt. \footnote{Remote: $172.16.X.X$}.
+		\item Ordnen sie der \emph{IPv4}-Adresse einer Subnetzmaske zu. Diese sollte minimal sein, d.h. nur so groß, dass zumindest drei bzw. vier Rechner Platz finden.
+		\item Konfigurieren sie den Netzwerkadapter mit den oben genannten Werten!\\
+		Achten sie darauf, dass sie das korrekte Gerät konfigurieren! Nutzen sie hierfür die üblichen Tools: \emph{ifconfig} und \emph{ip addr}
+	\end{enumerate}
+	\item Haben ihre Rechner einen Zugang zu anderen Rechnern? Können diese Maschinen außerhalb des LANs oder gar Rechner im Internet erreichen? Halten sie ihre Ergebnisse fest.
+	\item \textbf{Für die Hosts:}
+	\begin{enumerate}
+		\item Bevor sie das Netzwerk umsetzen: Legen sie fest welche Netzwerkadapter zu welchem Netzwerk gehören! Ordnen sie entsprechend den Adaptern den Netzwerken zu.
+		\item Wie in der vorigen Übung: Legen sie zu jedem Adapter \emph{IPv4} Adresse und Subnetzmaske fest. Die Netze sollten minimal sein!
+		\item Überprüfen sie, ob auf allen Adaptern die für das statische Netzwerk der \emph{DHCP}-Dienst ausgeschaltet ist.
+		\item Wählen sie für alle benötigten Adapter die gewählten \emph{IPv4} Adressen und Subnetzmasken. Jeder Host benötigt minimal eine IP-Adresse. Der Router zwei!
+		\item Setzen sie die gewählten IP-Adressen auf den Hosts.
+		\item Überprüfen sie, ob Rechner innerhalb eines LANs sich bereits erreichen können.
+		\item Lassen sie sich die aktuelle Routing-Tabelle anzeigen. Welche Informationen entnehmen sie dieser?
+		\item Fahren sie mit der Konfiguration des Routers fort.
+	\end{enumerate}
+	\item \textbf{Für den Router:}\\
+	Der Router benötigt eine etwas andere Konfiguration. 
+	\begin{enumerate}
+		\item Wie die Hosts benötigt ihr Router IP-Adressen. Für jeden Adapter mindestens eine Adresse samt Subnetzmaske. 
+		\item Konfigurieren sie die Adapter des Routers mit IP-Adresse und Subnetzmaske.
+		\item Der Router sollte anschließend alle Rechner erreichen können. Andersherum sollte natürlich alle VMs den gemeinsamen Router erreichen können.
+		\item Aktivieren sie das Forwarding auf dem Router, sodass Pakete aktiv weitergeleitet werden können.
+		\end{enumerate}
+		\item Finale: Setzen sie die Einträge im Routing-Table!\\
+		Es muss eine Route von Netzwerk $A$ in das Zielnetzwerk $B$ geben. Wo muss eine Konfiguration vorgenommen werden.
+		\item Der Router kennt sowohl Netzwerk $A$ als auch Netzwerk $B$, kann also beide Netzwerke erreichen. Die Hosts können den Router erreichen. Wo muss der Routing-Table bearbeitet werden (Host oder Router)?
+		\item Eine Route ist wie folgt aufgebaut: Zielnetzwerk $\to$ Router der einen Weg ins Zielnetzwerk kennt. Entsprechend:
+		\begin{enumerate}
+			\item Tragen sie auf den Rechnern entsprechende Routen ein!
+			\item Überprüfen sie, ob sich die Rechner über das LAN hinaus erreichen.
+		\end{enumerate}
+	\item Ihre VMs unterstützen auch IPv6. Was müssen sie für ein geswitchtes Netzwerk noch konfigurieren?
+	\item Testen sie, ob sich ihre VMs auch via IPv6 erreichen können.
+\end{enumerate}
+
+
+
+
+
+
+\printbibliography
+
+\end{document}
